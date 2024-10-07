@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+
+# Local stuff
+loca/*
+cpp00/ex00/megaphone
