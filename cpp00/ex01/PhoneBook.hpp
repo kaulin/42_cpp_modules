@@ -1,37 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   megaphone.cpp                                      :+:      :+:    :+:   */
+/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jajuntti <jajuntti@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/02 10:26:08 by jajuntti          #+#    #+#             */
-/*   Updated: 2024/10/21 09:47:45 by jajuntti         ###   ########.fr       */
+/*   Created: 2024/10/21 11:21:15 by jajuntti          #+#    #+#             */
+/*   Updated: 2024/10/30 16:47:53 by jajuntti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef PHONEBOOK_HPP
+# define PHONEBOOK_HPP
+
 #include <iostream>
+#include <iomanip>
+#include "Contact.hpp"
 
-char *toUpper(char *str)
+class PhoneBook
 {
-	for (int i = 0; str[i]; i++)
-		str[i] = std::toupper(str[i]);
-	return str;
-}
+		Contact	contacts[8];
+		int		nextIndex;
+		int		storedContacts;
+	public:
+		// Construct
+		PhoneBook();
+		// Destroy
+		~PhoneBook();
+		// Get
+		// Set
+		// Other
+		void	add();
+		void	search();
+		void	run();
+};
 
-int	main(int argc, char **argv)
-{
-	if (argc < 2)
-		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << std::endl;
-	else
-	{
-		for (int i = 1; i < argc; i++)
-		{
-			std::cout<< toUpper(argv[i]);
-			if (i != argc - 1)
-				std::cout << " ";
-		}
-		std::cout << std::endl;
-	}
-	return (0);
-}
+#endif
