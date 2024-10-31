@@ -32,5 +32,8 @@
 *.app
 
 # Local stuff
-loca/*
+local/*
+cpp00/.vscode/settings.json
+
 cpp00/ex00/megaphone
+cpp00/ex01/PhoneBook
