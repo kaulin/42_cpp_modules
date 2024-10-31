@@ -6,7 +6,7 @@
 /*   By: jajuntti <jajuntti@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 11:21:01 by jajuntti          #+#    #+#             */
-/*   Updated: 2024/10/30 15:28:17 by jajuntti         ###   ########.fr       */
+/*   Updated: 2024/10/31 16:17:03 by jajuntti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,6 @@ class Contact
 		// Destroy
 		~Contact();
 		// Get
-		std::string	getFirstName(void) const;
-		std::string	getLastName(void) const;
-		std::string	getNickname(void) const;
-		std::string	getPhoneNumber(void) const;
-		std::string	getDarkestSecret(void) const;
 		// Set
 		void	setFirstName(std::string firstName);
 		void	setLastName(std::string lastName);
@@ -41,6 +36,8 @@ class Contact
 		void	setPhoneNumber(std::string phoneNumber);
 		void	setDarkestSecret(std::string darkestSecret);
 		// Other
+		bool	verifyPhoneNumber(std::string phoneNumber);
+		void	printContact(bool condensed, int index);
 };
 
 #endif

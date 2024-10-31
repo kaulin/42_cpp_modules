@@ -6,7 +6,7 @@
 /*   By: jajuntti <jajuntti@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 11:21:15 by jajuntti          #+#    #+#             */
-/*   Updated: 2024/10/30 16:47:53 by jajuntti         ###   ########.fr       */
+/*   Updated: 2024/10/31 16:29:01 by jajuntti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,15 @@
 
 #include <iostream>
 #include <iomanip>
+#include <sstream>
 #include "Contact.hpp"
 
 class PhoneBook
 {
-		Contact	contacts[8];
-		int		nextIndex;
-		int		storedContacts;
+		Contact	_contacts[8];
+		int		_nextIndex;
+		int		_storedContacts;
+		void	_addContact(Contact newContact);
 	public:
 		// Construct
 		PhoneBook();
@@ -30,9 +32,9 @@ class PhoneBook
 		// Get
 		// Set
 		// Other
-		void	add();
-		void	search();
-		void	run();
+		std::string	add();
+		std::string	search();
+		void		run();
 };
 
 #endif
