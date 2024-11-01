@@ -6,7 +6,7 @@
 /*   By: jajuntti <jajuntti@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 11:21:11 by jajuntti          #+#    #+#             */
-/*   Updated: 2024/11/01 10:18:13 by jajuntti         ###   ########.fr       */
+/*   Updated: 2024/11/01 12:25:27 by jajuntti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ std::string	getInput(std::string label) {
 	std::string	input;
 
 	while (input.empty()) {
-		std::cout << "Provide " << label << std::endl;
+		std::cout << "Provide " << label << ":" << std::endl;
 		std::getline(std::cin, input);
 	}
 	return input;
@@ -43,7 +43,7 @@ std::string	PhoneBook::add() {
 	Contact		newContact;
 	std::string	input;
 
-	std::cout << "Adding contact" << std::endl;
+	std::cout << "Adding contact." << std::endl;
 	input = getInput("first name");
 	newContact.setFirstName(input);
 	input = getInput("last name");
@@ -57,13 +57,14 @@ std::string	PhoneBook::add() {
 	input = getInput("darkest secret");
 	newContact.setDarkestSecret(input);
 	_addContact(newContact);
-	return "Contact added";
+	return "Contact added.";
 }
 
 std::string	PhoneBook::search() {
 	int			index = 0;
 	std::string	input;
 
+	std::cout << "Searching contacts." << std::endl;
 	while (index < _storedContacts) {
 		_contacts[index].printContact(true, index);
 		index++;
@@ -71,22 +72,24 @@ std::string	PhoneBook::search() {
 	input = getInput("contact index");
 	std::istringstream(input) >> index;
 	if (input.length() != 1 || index < 0 || index >= _storedContacts)
-		return "Error: invalid index";
+		return "Invalid index.";
+	std::cout << "Contact found. Printing full contact information." << std::endl;
 	_contacts[index].printContact(false, index);
+	return "Search complete.";
 }
 
 void	PhoneBook::run() {
 	std::string	input;
 	
-	std::cout << "	PhoneBook started" << std::endl;
+	std::cout << "PhoneBook started!" << std::endl;
 	while (true)
 	{
-		std::cout << "	Enter command (see manual for list of commands)" << std::endl;
+		std::cout << "Enter command (see manual for list of commands):" << std::endl;
 		std::getline(std::cin, input);
 		if (!input.compare("ADD")) std::cout << add() << std::endl;
 		else if (!input.compare("SEARCH")) std::cout << search() << std::endl;
 		else if (!input.compare("EXIT")) {
-			std::cout << "	Exiting PhoneBook" << std::endl;
+			std::cout << "Exiting PhoneBook!" << std::endl;
 			return ;
 		}
 	}

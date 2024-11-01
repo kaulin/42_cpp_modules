@@ -6,7 +6,7 @@
 /*   By: jajuntti <jajuntti@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 11:21:07 by jajuntti          #+#    #+#             */
-/*   Updated: 2024/11/01 09:45:56 by jajuntti         ###   ########.fr       */
+/*   Updated: 2024/11/01 12:24:32 by jajuntti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ Contact::Contact() {}
 Contact::~Contact() {}
 // Get
 // Set
-void	Contact::setFirstName(std::string name) { this->_firstName = name; }
-void	Contact::setLastName(std::string name) { this->_lastName = name; }
-void	Contact::setNickname(std::string name) { this->_nickname = name; }
-void	Contact::setPhoneNumber(std::string number) { this->_phoneNumber = number; }
-void	Contact::setDarkestSecret(std::string secret) { this->_darkestSecret = secret; }
+void	Contact::setFirstName(std::string name) { _firstName = name; }
+void	Contact::setLastName(std::string name) { _lastName = name; }
+void	Contact::setNickname(std::string name) { _nickname = name; }
+void	Contact::setPhoneNumber(std::string number) { _phoneNumber = number; }
+void	Contact::setDarkestSecret(std::string secret) { _darkestSecret = secret; }
 // Other
 bool	Contact::verifyPhoneNumber(std::string phoneNumber)
 {
@@ -42,8 +42,6 @@ void	Contact::printContact(bool condensed, int index) {
 		<< std::setw(10) << (_nickname.length() > 10 ? _nickname.substr(0, 9) + "." : _nickname) << std::endl;
 	}
 	else {
-		std::cout.clear(); // Reset std::cout in case of errors
-		std::cout << "Printing full contact information..." << std::endl;
 		std::cout << "First name: " << _firstName << std::endl;
 		std::cout << "Last name: " << _lastName << std::endl;
 		std::cout << "Nickname: " << _nickname << std::endl;
