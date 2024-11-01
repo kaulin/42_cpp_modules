@@ -6,17 +6,17 @@
 #    By: jajuntti <jajuntti@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/02 10:46:35 by jajuntti          #+#    #+#              #
-#    Updated: 2024/10/30 16:41:27 by jajuntti         ###   ########.fr        #
+#    Updated: 2024/11/01 15:48:29 by jajuntti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		:= PhoneBook
+NAME		:= BanksterPro
 CC			:= c++
-CFLAGS		:= -Wall -Wextra -Werror #-g
+CFLAGS		:= -Wall -Wextra -Werror -std=c++98 -g
 
 # SOURCES
 #SRC_DIR	:= sources/
-SRCS		:= Contact.cpp PhoneBook.cpp main.cpp
+SRCS		:= Account.cpp tests.cpp
 #VPATH		+= $(SRC_DIR)
 
 # OBJECTS
@@ -25,7 +25,7 @@ OBJ			:= ${SRCS:.cpp=.o}
 OBJS		:= $(addprefix $(BUILD_DIR), $(OBJ))
 
 # HEADERS
-HEADERS		:= Contact.hpp PhoneBook.hpp
+HEADERS		:= Account.hpp
 #INC		:= -I includes/
 
 all: $(NAME)
