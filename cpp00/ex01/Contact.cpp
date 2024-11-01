@@ -6,7 +6,7 @@
 /*   By: jajuntti <jajuntti@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 11:21:07 by jajuntti          #+#    #+#             */
-/*   Updated: 2024/10/31 16:36:56 by jajuntti         ###   ########.fr       */
+/*   Updated: 2024/11/01 09:45:56 by jajuntti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	Contact::printContact(bool condensed, int index) {
 		<< std::setw(10) << (_nickname.length() > 10 ? _nickname.substr(0, 9) + "." : _nickname) << std::endl;
 	}
 	else {
+		std::cout.clear(); // Reset std::cout in case of errors
+		std::cout << "Printing full contact information..." << std::endl;
 		std::cout << "First name: " << _firstName << std::endl;
 		std::cout << "Last name: " << _lastName << std::endl;
 		std::cout << "Nickname: " << _nickname << std::endl;

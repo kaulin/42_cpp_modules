@@ -6,7 +6,7 @@
 /*   By: jajuntti <jajuntti@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 11:21:11 by jajuntti          #+#    #+#             */
-/*   Updated: 2024/10/31 16:32:55 by jajuntti         ###   ########.fr       */
+/*   Updated: 2024/11/01 10:18:13 by jajuntti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,26 +68,25 @@ std::string	PhoneBook::search() {
 		_contacts[index].printContact(true, index);
 		index++;
 	}
-	input = getInput("desired contact index");
-	std::stringstream(input) >> index;
-	if (index < 0 || index > 7)
+	input = getInput("contact index");
+	std::istringstream(input) >> index;
+	if (input.length() != 1 || index < 0 || index >= _storedContacts)
 		return "Error: invalid index";
 	_contacts[index].printContact(false, index);
-	return "Search successful";
 }
 
 void	PhoneBook::run() {
 	std::string	input;
 	
-	std::cout << "PhoneBook started" << std::endl;
+	std::cout << "	PhoneBook started" << std::endl;
 	while (true)
 	{
-		std::cout << "Commands are ADD, SEARCH and EXIT" << std::endl;
+		std::cout << "	Enter command (see manual for list of commands)" << std::endl;
 		std::getline(std::cin, input);
 		if (!input.compare("ADD")) std::cout << add() << std::endl;
 		else if (!input.compare("SEARCH")) std::cout << search() << std::endl;
 		else if (!input.compare("EXIT")) {
-			std::cout << "Exiting PhoneBook" << std::endl;
+			std::cout << "	Exiting PhoneBook" << std::endl;
 			return ;
 		}
 	}
