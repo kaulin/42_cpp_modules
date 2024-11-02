@@ -6,16 +6,15 @@
 /*   By: jajuntti <jajuntti@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 10:11:10 by jajuntti          #+#    #+#             */
-/*   Updated: 2024/11/01 16:39:38 by jajuntti         ###   ########.fr       */
+/*   Updated: 2024/11/02 11:06:10 by jajuntti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // Use to check: diff <(sed 's/\[[^][]*\]//g' 19920104_091532.log) <(sed 's/\[[^][]*\]//g' log.log)
 
 #include <iostream>
-#include <ctime>
 #include <iomanip>
-#include <sstream>
+#include <ctime>
 #include "Account.hpp"
 
 
@@ -31,12 +30,13 @@ void	Account::_displayTimestamp( void ) {
 	std::time_t	now = std::time(0);
 	std::tm*	curTime = std::localtime(&now);
 	std::cout << "["
-		<< curTime->tm_year +  1900
-		<< curTime->tm_mon + 1
-		<< curTime->tm_mday << "_"
-		<< curTime->tm_hour
-		<< curTime->tm_min
-		<< curTime->tm_sec << "]";
+		<< std::setw(4) << std::setfill('0') << curTime->tm_year +  1900
+		<< std::setw(2) << std::setfill('0') << curTime->tm_mon
+		<< std::setw(2) << std::setfill('0') << curTime->tm_mday << "_"
+		<< std::setw(2) << std::setfill('0') << curTime->tm_hour
+		<< std::setw(2) << std::setfill('0') << curTime->tm_min
+		<< std::setw(2) << std::setfill('0') << curTime->tm_sec << "]";
+		// (_firstName.length() > 10 ? _firstName.substr(0, 9) + "." : _firstName)
 //[19920104_091532]
 }
 
