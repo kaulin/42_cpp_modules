@@ -6,7 +6,7 @@
 /*   By: jajuntti <jajuntti@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:18:19 by jajuntti          #+#    #+#             */
-/*   Updated: 2024/11/04 13:57:20 by jajuntti         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:43:28 by jajuntti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define Zombie_HPP
 
 #include <iostream>
-#include <iomanip>
 
 class Zombie
 {
@@ -31,8 +30,5 @@ public:
 	// Other
 	void	announce(void);
 };
-
-Zombie	*newZombie(std::string name);
-void	randomChump(std::string name);
 
 #endif

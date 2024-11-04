@@ -1,20 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   randomChump.cpp                                    :+:      :+:    :+:   */
+/*   Zombie.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jajuntti <jajuntti@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/04 13:36:45 by jajuntti          #+#    #+#             */
-/*   Updated: 2024/11/04 14:43:22 by jajuntti         ###   ########.fr       */
+/*   Created: 2024/11/04 13:18:19 by jajuntti          #+#    #+#             */
+/*   Updated: 2024/11/04 14:44:39 by jajuntti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
+#ifndef Zombie_HPP
+# define Zombie_HPP
 
-void	randomChump(std::string name) {
-	Zombie	brainEater;
-	
-	brainEater.setName(name);
-	brainEater.announce();
-}
+#include <iostream>
+
+class Zombie
+{
+
+private:
+	std::string	_name;
+public:
+	typedef Zombie	t;
+	// Construct
+	Zombie();
+	// Destroy
+	~Zombie();
+	// Get
+	// Set
+	void	setName(std::string _name);
+	// Other
+	void	announce(void);
+};
+
+#endif
