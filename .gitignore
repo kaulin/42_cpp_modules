@@ -33,8 +33,7 @@
 
 # Local stuff
 local/*
-*/.vscode/settings.json
-.vscode/settings.json
+*.json
 
 cpp00/ex00/megaphone
 cpp00/ex01/PhoneBook

@@ -6,7 +6,7 @@
 /*   By: jajuntti <jajuntti@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:18:19 by jajuntti          #+#    #+#             */
-/*   Updated: 2024/11/05 09:33:35 by jajuntti         ###   ########.fr       */
+/*   Updated: 2024/11/05 14:59:45 by jajuntti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,19 @@
 
 class Zombie
 {
-
-private:
-	std::string	_name;
-public:
-	// Construct
-	Zombie();
-	Zombie( std::string name);
-	// Destroy
-	~Zombie();
-	// Get
-	// Set
-	void	setName(std::string _name);
-	// Other
-	void	announce(void);
+	private:
+		std::string	_name;
+	public:
+		// Construct
+		Zombie();
+		Zombie( std::string name);
+		// Destroy
+		~Zombie();
+		// Get
+		// Set
+		void	setName(std::string _name);
+		// Other
+		void	announce(void);
 };
 
 #endif
