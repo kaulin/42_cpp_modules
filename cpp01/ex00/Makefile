@@ -6,18 +6,16 @@
 #    By: jajuntti <jajuntti@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/02 10:46:35 by jajuntti          #+#    #+#              #
-#    Updated: 2024/11/04 13:36:09 by jajuntti         ###   ########.fr        #
+#    Updated: 2024/11/05 13:29:02 by jajuntti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		:= BraiiiiiiinnnzzzZ
-CC			:= c++
-CFLAGS		:= -Wall -Wextra -Werror #-g
+CXX			:= c++
+CXXFLAGS	:= -Wall -Wextra -Werror
 
 # SOURCES
-#SRC_DIR	:= sources/
 SRCS		:= main.cpp Zombie.cpp newZombie.cpp randomChump.cpp
-#VPATH		+= $(SRC_DIR)
 
 # OBJECTS
 BUILD_DIR	:= build/
@@ -25,21 +23,21 @@ OBJ			:= ${SRCS:.cpp=.o}
 OBJS		:= $(addprefix $(BUILD_DIR), $(OBJ))
 
 # HEADERS
-HEADERS		:= Zombie.cpp
-#INC		:= -I includes/
+HEADERS		:= Zombie.hpp
 
 all: $(NAME)
 
-$(NAME): $(BUILD_DIR) $(OBJS)
-	@echo "Linking executable $(NAME)"
-	@$(CC) $(CFLAGS) $(OPTS) $(OBJS) -o $(NAME)
+$(NAME): $(BUILD_DIR) $(OBJS) $(HEADERS) Makefile
+	@echo "Linking executable $(NAME)..."
+	@$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
+	@echo "$(NAME) built with $(CXX) and flags $(CXXFLAGS)!"
 
 $(BUILD_DIR):
 	@mkdir $(BUILD_DIR)
 
-$(BUILD_DIR)%.o: %.cpp
+$(BUILD_DIR)%.o: %.cpp $(HEADERS) Makefile 
 	@echo "Compiling $<"
-	@$(CC) $(CFLAGS) -c $< -o $(BUILD_DIR)$(<:.cpp=.o)
+	@$(CXX) $(CXXFLAGS) -c $< -o $(BUILD_DIR)$(<:.cpp=.o)
 
 clean:
 	@echo "Removing object files"
@@ -47,8 +45,14 @@ clean:
 
 fclean: clean
 	@echo "Removing executable"
-	@rm $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+debug: CXXFLAGS += -g
+debug: fclean $(NAME)
+
+sanitize: CXXFLAGS += -g -fsanitize=address
+sanitize: fclean $(NAME)
+
+.PHONY: all clean fclean re debug sanitize
