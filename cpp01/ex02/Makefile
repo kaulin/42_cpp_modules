@@ -6,11 +6,11 @@
 #    By: jajuntti <jajuntti@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/02 10:46:35 by jajuntti          #+#    #+#              #
-#    Updated: 2024/11/05 15:13:03 by jajuntti         ###   ########.fr        #
+#    Updated: 2024/11/06 09:06:33 by jajuntti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		:= Hi_this_is_brain
+NAME		:= HiThisIsBrain
 CXX			:= c++
 CXX_FLAGS	:= -Wall -Wextra -Werror
 
