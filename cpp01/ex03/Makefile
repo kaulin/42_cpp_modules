@@ -6,16 +6,16 @@
 #    By: jajuntti <jajuntti@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/02 10:46:35 by jajuntti          #+#    #+#              #
-#    Updated: 2024/11/06 09:06:43 by jajuntti         ###   ########.fr        #
+#    Updated: 2024/11/06 09:06:23 by jajuntti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		:= MoarBrainz
+NAME		:= UnnecessaryViolence
 CXX			:= c++
 CXXFLAGS	:= -Wall -Wextra -Werror
 
 # SOURCES
-SRCS		:= main.cpp Zombie.cpp zombieHorde.cpp
+SRCS		:= main.cpp HumanA.cpp HumanB.cpp Weapon.cpp
 
 # OBJECTS
 BUILD_DIR	:= build/
@@ -23,7 +23,7 @@ OBJ			:= ${SRCS:.cpp=.o}
 OBJS		:= $(addprefix $(BUILD_DIR), $(OBJ))
 
 # HEADERS
-HEADERS		:= Zombie.hpp
+HEADERS		:= HumanA.hpp HumanB.hpp Weapon.hpp
 
 all: $(NAME)
 
