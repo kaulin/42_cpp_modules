@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Class.hpp                                         :+:      :+:    :+:   */
+/*   Weapon.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jajuntti <jajuntti@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:18:19 by jajuntti          #+#    #+#             */
-/*   Updated: 2024/11/05 10:55:06 by jajuntti         ###   ########.fr       */
+/*   Updated: 2024/11/06 14:40:52 by jajuntti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef Class_HPP
-# define Class_HPP
+#ifndef Weapon_HPP
+#define Weapon_HPP
 
 #include <iostream>
 
-class Class
+class	Weapon
 {
 private:
-	std::string	_name;
+	std::string	_type;
 public:
 	// Construct
-	Class();
-	Class( std::string name);
+	Weapon( std::string type );
 	// Destroy
-	~Class();
+	~Weapon();
 	// Get
-	std::string getName(void);
+	const	std::string& getType( void );
 	// Set
-	void	setName(std::string _name);
+	void	setType( std::string _type );
 	// Other
 };
 

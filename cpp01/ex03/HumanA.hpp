@@ -1,35 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Class.hpp                                         :+:      :+:    :+:   */
+/*   HumanA.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jajuntti <jajuntti@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:18:19 by jajuntti          #+#    #+#             */
-/*   Updated: 2024/11/05 10:55:06 by jajuntti         ###   ########.fr       */
+/*   Updated: 2024/11/06 14:14:50 by jajuntti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef Class_HPP
-# define Class_HPP
+#ifndef HumanA_HPP
+# define HumanA_HPP
 
 #include <iostream>
+#include "Weapon.hpp"
 
-class Class
+class	HumanA
 {
 private:
 	std::string	_name;
+	Weapon&		_weapon;
 public:
 	// Construct
-	Class();
-	Class( std::string name);
+	HumanA( std::string name, Weapon& weapon );
 	// Destroy
-	~Class();
+	~HumanA();
 	// Get
-	std::string getName(void);
 	// Set
-	void	setName(std::string _name);
 	// Other
+	void	attack( void );
 };
 
 #endif

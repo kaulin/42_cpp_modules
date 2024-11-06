@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Class.cpp                                         :+:      :+:    :+:   */
+/*   Weapon.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jajuntti <jajuntti@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:22:35 by jajuntti          #+#    #+#             */
-/*   Updated: 2024/11/05 10:54:10 by jajuntti         ###   ########.fr       */
+/*   Updated: 2024/11/06 14:41:22 by jajuntti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Class.hpp"
+#include "Weapon.hpp"
 
 // Construct
-Class::Class () {}
-Class::Class (std::string name) { _name = name; }
+Weapon::Weapon ( std::string type ) { _type = type; }
 // Destruct
-Class::~Class() { std::cout << _name << std::endl; }
+Weapon::~Weapon() {}
 // Get
-std::string Class::getName() { return _name; }
+const std::string&	Weapon::getType() {
+	std::string&	type_ref = _type;
+	return type_ref;
+	}
 // Set
-void Class::setName(std::string name) { _name = name; }
+void	Weapon::setType( std::string type ) { _type = type; }
