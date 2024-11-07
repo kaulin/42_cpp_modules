@@ -10,13 +10,13 @@ private:
 public:
 	// Construct
 	Class();
-	Class( std::string name );
+	Class(std::string name);
 	// Destroy
 	~Class();
 	// Get
 	std::string	getName(void);
 	// Set
-	void	setName( std::string _name );
+	void	setName(std::string _name);
 	// Other
 };
 
