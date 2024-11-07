@@ -1,5 +1,5 @@
 #ifndef Class_HPP
-# define Class_HPP
+#define Class_HPP
 
 #include <iostream>
 
