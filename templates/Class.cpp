@@ -9,3 +9,4 @@ Class::~Class() { std::cout << _name << std::endl; }
 std::string	Class::getName() { return _name; }
 // Set
 void	Class::setName(std::string name) { _name = name; }
+// Other
