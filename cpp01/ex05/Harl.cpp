@@ -14,5 +14,10 @@ Harl::~Harl() {}
 // Set
 // Other
 void	Harl::complain(std::string level) {
+	void		(Harl::*functionArray[4])(void) = { &Harl::_debug, &Harl::_info, &Harl::_warning, &Harl::_error };
+	std::string	levelArray[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
 	
+	for (int i = 0; i < 4; i++) {
+		if (level == levelArray[i]) (this->*functionArray[i])();
+	}
 }

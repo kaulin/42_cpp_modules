@@ -1,4 +1,4 @@
-NAME		:= Harl
+NAME		:= "Harl 2.0"
 CXX			:= c++
 CXXFLAGS	:= -Wall -Wextra -Werror
 
