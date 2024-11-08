@@ -3,7 +3,7 @@ CXX			:= c++
 CXXFLAGS	:= -Wall -Wextra -Werror
 
 # SOURCES
-SRCS		:= main.cpp harlFilter.cpp Harl.cpp
+SRCS		:= main.cpp Harl.cpp
 
 # OBJECTS
 BUILD_DIR	:= build/
