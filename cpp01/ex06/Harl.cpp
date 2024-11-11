@@ -18,6 +18,9 @@ void	Harl::complain(std::string level) {
 	std::string	levelArray[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
 	
 	for (int i = 0; i < 4; i++) {
-		if (level == levelArray[i]) (this->*functionArray[i])();
+		if (level == levelArray[i]) {
+			(this->*functionArray[i])();
+			return ;
+		}
 	}
 }
