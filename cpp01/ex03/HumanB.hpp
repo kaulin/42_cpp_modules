@@ -6,7 +6,7 @@
 /*   By: jajuntti <jajuntti@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:18:19 by jajuntti          #+#    #+#             */
-/*   Updated: 2024/11/06 14:29:55 by jajuntti         ###   ########.fr       */
+/*   Updated: 2024/11/13 08:53:34 by jajuntti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ private:
 	Weapon*		_weapon;
 public:
 	// Construct
-	HumanB( std::string name );
+	HumanB(std::string name);
 	// Destroy
 	~HumanB();
 	// Get
 	// Set
-	void	setWeapon( Weapon& weapon);
+	void	setWeapon(Weapon& weapon);
 	// Other
 	void	attack();
 };
