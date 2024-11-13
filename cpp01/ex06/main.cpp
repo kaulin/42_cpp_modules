@@ -21,7 +21,7 @@ void	harlFilter(std::string filter) {
 		while (level < 4) harl.complain(levelArray[level++]);
 		break;
 	default:
-		std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
+		std::cout << GENERAL_MSG << std::endl;
 		break;
 	}
 }
