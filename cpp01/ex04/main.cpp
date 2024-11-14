@@ -6,7 +6,7 @@
 /*   By: jajuntti <jajuntti@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:36:15 by jajuntti          #+#    #+#             */
-/*   Updated: 2024/11/07 15:32:55 by jajuntti         ###   ########.fr       */
+/*   Updated: 2024/11/14 10:46:09 by jajuntti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,13 @@ int	openOutfile(const std::string& path, std::ofstream& outfile) {
 	return 0;
 }
 
-void	reeplace(const std::string& s1, const std::string& s2, std::string& line) {
-	std::size_t	pos;
-	
-	pos = line.find(s1);
-	line.erase(pos, s1.length());
-	line.insert(pos, s2);
-}
-
-void	reeplaceAll(const std::string& s1, const std::string& s2, std::string& line) {
-	while (line.find(s1) != std::string::npos) reeplace(s1, s2, line);
+void	replaceAll(const std::string& s1, const std::string& s2, std::string& line) {
+	std::size_t	pos = line.find(s1);
+	while (pos != std::string::npos) { //reeplace(s1, s2, line, pos);
+		line.erase(pos, s1.length());
+		line.insert(pos, s2);
+		pos = line.find(s1, pos + s2.length());
+	}
 }
 
 int	main(int argc, char **argv) {
@@ -68,7 +65,7 @@ int	main(int argc, char **argv) {
 	if (openInfile(path, infile) || openOutfile(path, outfile))
 		return 1;
 	while (std::getline(infile, line)) {
-		reeplaceAll(s1, s2, line);
+		replaceAll(s1, s2, line);
 		outfile << line << std::endl;
 	}
 	return 0;
