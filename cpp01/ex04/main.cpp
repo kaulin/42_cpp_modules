@@ -6,7 +6,7 @@
 /*   By: jajuntti <jajuntti@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:36:15 by jajuntti          #+#    #+#             */
-/*   Updated: 2024/11/14 10:46:09 by jajuntti         ###   ########.fr       */
+/*   Updated: 2024/11/14 10:49:13 by jajuntti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	openOutfile(const std::string& path, std::ofstream& outfile) {
 
 void	replaceAll(const std::string& s1, const std::string& s2, std::string& line) {
 	std::size_t	pos = line.find(s1);
-	while (pos != std::string::npos) { //reeplace(s1, s2, line, pos);
+	while (pos != std::string::npos) {
 		line.erase(pos, s1.length());
 		line.insert(pos, s2);
 		pos = line.find(s1, pos + s2.length());
