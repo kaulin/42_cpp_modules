@@ -1,9 +1,9 @@
-NAME		:= XXX
+NAME		:= Fixed
 CXX			:= c++
 CXXFLAGS	:= -Wall -Wextra -Werror
 
 # SOURCES
-SRCS		:= main.cpp XXX.cpp
+SRCS		:= main.cpp Fixed.cpp
 
 # OBJECTS
 BUILD_DIR	:= build/
@@ -11,7 +11,7 @@ OBJ			:= ${SRCS:.cpp=.o}
 OBJS		:= $(addprefix $(BUILD_DIR), $(OBJ))
 
 # HEADERS
-HEADERS		:= XXX.hpp
+HEADERS		:= Fixed.hpp
 
 all: $(NAME)
 
