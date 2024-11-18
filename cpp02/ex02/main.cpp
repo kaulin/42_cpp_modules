@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Fixed.hpp"
 
-int main(void) {
+int main() {
 	Fixed a;
 	Fixed const b( Fixed( 5.05f ) * Fixed( 2 ) );
 	std::cout << a << std::endl;
@@ -50,9 +50,9 @@ int main(void) {
 // 	Fixed	a(std::stof(numA));
 // 	Fixed	b(std::stof(numB));
 // 	Fixed	result;
-// 	std::cout << "Num A: " << a << " / " << std::bitset<32>(a.getRawBits()) << std::endl;
-// 	std::cout << op << std::endl;
-// 	std::cout << "Num B: " << b << " / " << std::bitset<32>(b.getRawBits()) << std::endl;
+// 	std::cout << "Num A:	" << a << " in bits: " << std::bitset<32>(a.getRawBits()) << std::endl;
+// 	std::cout << "Operator:	" << op << std::endl;
+// 	std::cout << "Num B:	" << b << " in bits: " << std::bitset<32>(b.getRawBits()) << std::endl;
 // 	if (!op.compare("+")) result.setRawBits(Fixed(a + b).getRawBits());
 // 	else if (!op.compare("-")) result.setRawBits(Fixed(a - b).getRawBits());
 // 	else if (!op.compare("*")) result.setRawBits(Fixed(a * b).getRawBits());
@@ -66,9 +66,9 @@ int main(void) {
 // 	else if (!op.compare("min")) result.setRawBits(Fixed::min(a, b).getRawBits());
 // 	else if (!op.compare("max")) result.setRawBits(Fixed::max(a, b).getRawBits());
 // 	else {
-// 		std::cout << "unknown operator" << std::endl;
+// 		std::cout << "Unknown operator" << std::endl;
 // 		return 2;
 // 	}
-// 	std::cout << "Result: " << result << " / " << std::bitset<32>(result.getRawBits()) << std::endl;
+// 	std::cout << "Result: " << result << " in bits: " << std::bitset<32>(result.getRawBits()) << std::endl;
 // 	return 0;
 // }
