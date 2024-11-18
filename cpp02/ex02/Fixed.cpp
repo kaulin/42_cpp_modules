@@ -1,35 +1,20 @@
 #include "Fixed.hpp"
 
 // Default Constructor
-Fixed::Fixed() {
-	std::cout << "Default constructor called" << std::endl;
-	_value = 0;
-}
+Fixed::Fixed() { _value = 0; }
 
 // Parametric constructors
-Fixed::Fixed(const int value) : _value(value) {
-	std::cout << "Int constructor called" << std::endl;
-	_value = (_value << Fixed::_fracBits);
-}
-Fixed::Fixed(const float value) : _value(value) {
-	std::cout << "Float constructor called" << std::endl;
-	_value = (int)roundf(value * (1 << Fixed::_fracBits));
-}
+Fixed::Fixed(const int value) : _value(value) { _value = (_value << Fixed::_fracBits); }
+Fixed::Fixed(const float value) : _value(value) { _value = (int)roundf(value * (1 << Fixed::_fracBits)); }
 
 // Destructor
-Fixed::~Fixed() {
-	std::cout << "Destructor called" << std::endl;
-}
+Fixed::~Fixed() {}
 
 // Copy Constructor
-Fixed::Fixed(const Fixed& other) {
-	std::cout << "Copy constructor called" << std::endl;
-	*this = other;
-}
+Fixed::Fixed(const Fixed& other) { *this = other; }
 
 // Copy Assignment Operator
 Fixed& Fixed::operator=(const Fixed& other) {
-	std::cout << "Copy assignment operator called" << std::endl;
 	if (this == &other) return *this;
 	_value = other._value;
 	return *this;
@@ -89,37 +74,18 @@ Fixed	Fixed::operator--(int) {
 }
 
 // Getters
-int	Fixed::getRawBits() const {
-	std::cout << "getRawBits member function called" << std::endl;
-	return _value;
-}
+int	Fixed::getRawBits() const {	return _value; }
 
 // Setters
-void	Fixed::setRawBits(const int raw) {
-	std::cout << "setRawBits member function called" << std::endl;
-	_value = raw;
-}
+void	Fixed::setRawBits(const int raw) { _value = raw; }
 
 // Other
-int	Fixed::toInt() const {
-	return (_value >> Fixed::_fracBits); 
-}
-float	Fixed::toFloat() const {
-	return ((float)_value / (float)(1 << Fixed::_fracBits));
-}
-
-Fixed&	Fixed::min(Fixed& a, Fixed& b) {
-	return (a < b) ? a : b;
-}
-const Fixed&	Fixed::min(const Fixed& a, const Fixed& b) {
-	return (a < b) ? a : b;
-}
-Fixed&	Fixed::max(Fixed& a, Fixed& b) {
-	return (a > b) ? a : b;
-}
-const Fixed&	Fixed::max(const Fixed& a, const Fixed& b) {
-	return (a > b) ? a : b;
-}
+int				Fixed::toInt() const { return (_value >> Fixed::_fracBits); }
+float			Fixed::toFloat() const { return ((float)_value / (float)(1 << Fixed::_fracBits)); }
+Fixed&			Fixed::min(Fixed& a, Fixed& b) { return (a < b) ? a : b; }
+const Fixed&	Fixed::min(const Fixed& a, const Fixed& b) { return (a < b) ? a : b; }
+Fixed&			Fixed::max(Fixed& a, Fixed& b) { return (a > b) ? a : b; }
+const Fixed&	Fixed::max(const Fixed& a, const Fixed& b) { return (a > b) ? a : b; }
 
 // Insertion Operator
 std::ostream& operator<<(std::ostream& os, const Fixed& fixed) {
