@@ -5,8 +5,8 @@
 
 class Fixed {
 private:
+	static const int	_fracBits = 8;
 	int					_value;
-	static const int	_bits = 8;
 public:
 	// Default Constructor
 	Fixed();
@@ -20,7 +20,7 @@ public:
 	// Getters
 	int		getRawBits(void) const;
 	// Setters
-	void	setRawBits(int const raw);
+	void	setRawBits(const int raw);
 	// Other
 };
 

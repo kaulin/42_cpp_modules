@@ -2,11 +2,12 @@
 #define MYCLASS_H
 
 #include <iostream>
+#include <cmath>
 
 class Fixed {
 private:
+	static const int	_fracBits = 8;
 	int					_value;
-	static const int	_bits = 8;
 public:
 	// Default Constructor
 	Fixed();
@@ -20,8 +21,6 @@ public:
 
 	// Copy Assignment Operator
 	Fixed& operator=(const Fixed& other);
-	// Other Operators
-	std::ostream& operator<<(std::ostream& os, const Fixed& fixed);
 
 	// Getters
 	int		getRawBits(void) const;
@@ -31,5 +30,8 @@ public:
 	float	toFloat(void) const;
 	int		toInt(void)const;
 };
+
+// Other Operators
+std::ostream& operator<< (std::ostream& os, const Fixed& fixed);
 
 #endif
