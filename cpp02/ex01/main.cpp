@@ -18,8 +18,10 @@ int main(void) {
 	// Fixed	e(6.66f);
 	// Fixed	f(42.42f);
 	// Fixed	g(e);
+	// Fixed	h(3.9980467557907104f);
 	// std::cout << "g is " << g << std::endl;
 	// g.setRawBits(f.getRawBits());
 	// std::cout << "g is " << g << std::endl;
+	// std::cout << "h is " << h.toFloat() << std::endl;
 	return 0;
 }

@@ -13,7 +13,7 @@ Fixed::Fixed(const int value) : _value(value) {
 }
 Fixed::Fixed(const float value) : _value(value) {
 	std::cout << "Float constructor called" << std::endl;
-	_value = (int)round(value * (1 << Fixed::_fracBits));
+	_value = (int)roundf(value * (1 << Fixed::_fracBits));
 }
 
 // Destructor
