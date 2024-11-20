@@ -10,7 +10,7 @@ public:
 	// Default Constructor
 	MyClass();
 	// Parameterized Constructor
-	MyClass(std::string name);
+	MyClass(const std::string& name);
 	// Destructor
 	~MyClass();
 	// Copy Constructor

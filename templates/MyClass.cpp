@@ -1,26 +1,26 @@
-#include "ClassTemplate.hpp"
+#include "MyClass.hpp"
 
 // Default Constructor
 MyClass::MyClass () {
-	std::cout << "Default constructor called.\n";
+	std::cout << "Default constructor called." << std::endl;
 }
 // Parameterized Constructor
-MyClass::MyClass (std::string name) : _name(name) {
-	std::cout << "Parameterized constructor called.\n";
+MyClass::MyClass (const std::string& name) : _name(name) {
+	std::cout << "Parameterized constructor called." << std::endl;
 }
 // Destructor
 MyClass::~MyClass() {
-	std::cout << "Destructor called.\n";
+	std::cout << "Destructor called." << std::endl;
 }
 // Copy Constructor
 MyClass::MyClass(const MyClass& other) : _name(other._name) {
-	std::cout << "Copy constructor called.\n";
+	std::cout << "Copy constructor called." << std::endl;
 }
 // Copy Assignment Operator
 MyClass& MyClass::operator=(const MyClass& other) {
 	if (this == &other) return *this;
 	_name = other._name;
-	std::cout << "Copy assignment operator called.\n";
+	std::cout << "Copy assignment operator called." << std::endl;
 	return *this;
 }
 // Getters
