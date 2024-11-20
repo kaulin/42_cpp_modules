@@ -13,7 +13,7 @@ public:
 	// Default Constructor
 	ClapTrap();
 	// Parameterized Constructor
-	ClapTrap(std::string name);
+	ClapTrap(const std::string& name);
 	// Destructor
 	~ClapTrap();
 	// Copy Constructor
