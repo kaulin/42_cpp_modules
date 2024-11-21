@@ -42,21 +42,24 @@ int main()
 		std::cout << "Cat2 idea 0 is " << cat2.getIdea(0) << std::endl;
 		std::cout << "Cat2 idea 99 is " << cat2.getIdea(99) << std::endl;
 		Dog dog1;
-		Dog dog2(dog1);
 		std::cout << "Dog1 idea 0 is " << dog1.getIdea(0) << std::endl;
 		std::cout << "Dog1 idea 99 is " << dog1.getIdea(99) << std::endl;
-		std::cout << "Dog2 idea 0 is " << dog2.getIdea(0) << std::endl;
-		std::cout << "Dog2 idea 99 is " << dog2.getIdea(99) << std::endl;
 		dog1.brainwash();
 		std::cout << "Dog1 idea 0 is " << dog1.getIdea(0) << std::endl;
 		std::cout << "Dog1 idea 99 is " << dog1.getIdea(99) << std::endl;
+		Dog dog2(dog1);
 		std::cout << "Dog2 idea 0 is " << dog2.getIdea(0) << std::endl;
 		std::cout << "Dog2 idea 99 is " << dog2.getIdea(99) << std::endl;
-		dog2 = dog1;
+		Dog dog3;
+		std::cout << "Dog3 idea 0 is " << dog3.getIdea(0) << std::endl;
+		std::cout << "Dog3 idea 99 is " << dog3.getIdea(99) << std::endl;
+		dog2 = dog3;
 		std::cout << "Dog1 idea 0 is " << dog1.getIdea(0) << std::endl;
 		std::cout << "Dog1 idea 99 is " << dog1.getIdea(99) << std::endl;
 		std::cout << "Dog2 idea 0 is " << dog2.getIdea(0) << std::endl;
 		std::cout << "Dog2 idea 99 is " << dog2.getIdea(99) << std::endl;
+		std::cout << "Dog3 idea 0 is " << dog3.getIdea(0) << std::endl;
+		std::cout << "Dog3 idea 99 is " << dog3.getIdea(99) << std::endl;
 	}
 	
 	std::cout << "\nDoing deep copy test:" << std::endl;

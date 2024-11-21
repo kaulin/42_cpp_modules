@@ -6,7 +6,7 @@ Cat::Cat () : _brain(new Brain()) {
 	_type = "Cat";
 }
 // Copy Constructor
-Cat::Cat(const Cat& other) : _brain(new Brain()) {
+Cat::Cat(const Cat& other) : _brain(new Brain(*other._brain)) {
 	std::cout << "Cat: Copy constructor called." << std::endl;
 	_type = other._type;
 }
