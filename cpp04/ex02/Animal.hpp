@@ -20,7 +20,7 @@ public:
 	const std::string& getType() const;
 	// Setters
 	// Other
-	virtual void makeSound() const;
+	virtual void makeSound() const = 0;
 };
 
 #endif

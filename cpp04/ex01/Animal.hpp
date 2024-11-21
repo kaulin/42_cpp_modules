@@ -9,17 +9,15 @@ protected:
 public:
 	// Default Constructor
 	Animal();
-	// Parameterized Constructor
 	// Copy Constructor
 	Animal(const Animal& other);
-	Animal(const std::string& name);
 	// Destructor
 	virtual ~Animal();
 	// Copy Assignment Operator
 	Animal& operator=(const Animal& other);
 
 	// Getters
-	virtual const std::string& getType() const;
+	const std::string& getType() const;
 	// Setters
 	// Other
 	virtual void makeSound() const;

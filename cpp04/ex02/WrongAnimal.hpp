@@ -1,26 +1,26 @@
-#ifndef ANIMAL_H
-#define ANIMAL_H
+#ifndef WRONGANIMAL_H
+#define WRONGANIMAL_H
 
 #include <iostream>
 
-class Animal {
+class WrongAnimal {
 protected:
 	std::string	_type;
 public:
 	// Default Constructor
-	Animal();
+	WrongAnimal();
 	// Copy Constructor
-	Animal(const Animal& other);
+	WrongAnimal(const WrongAnimal& other);
 	// Destructor
-	virtual ~Animal();
+	~WrongAnimal();
 	// Copy Assignment Operator
-	Animal& operator=(const Animal& other);
+	WrongAnimal& operator=(const WrongAnimal& other);
 
 	// Getters
 	const std::string& getType() const;
 	// Setters
 	// Other
-	virtual void makeSound() const;
+	void makeSound() const;
 };
 
 #endif
