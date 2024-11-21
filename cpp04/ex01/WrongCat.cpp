@@ -24,4 +24,4 @@ WrongCat& WrongCat::operator=(const WrongCat& other) {
 // Getters
 // Setters
 // Other
-	void WrongCat::makeSound() const { std::cout << "MEOW MEOW!!!" << std::endl; }
+	void WrongCat::makeSound(void) const { std::cout << "MEOW MEOW!!!" << std::endl; }

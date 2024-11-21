@@ -18,7 +18,7 @@ public:
 	// Getters
 	// Setters
 	// Other
-	void makeSound() const;
+	void makeSound(void) const;
 };
 
 #endif
