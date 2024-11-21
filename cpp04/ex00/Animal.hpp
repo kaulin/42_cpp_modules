@@ -10,19 +10,19 @@ public:
 	// Default Constructor
 	Animal();
 	// Parameterized Constructor
-	Animal(const std::string& name);
+	Animal(const std::string& name) = delete;
 	// Destructor
-	~Animal();
+	virtual ~Animal();
 	// Copy Constructor
-	Animal(const Animal& other);
+	Animal(const Animal& other) = delete;
 	// Copy Assignment Operator
-	Animal& operator=(const Animal& other);
+	Animal& operator=(const Animal& other) = delete;
 
 	// Getters
-	std::string& getType();
+	virtual const std::string& getType() const;
 	// Setters
 	// Other
-	virtual void makeSound();
+	virtual void makeSound() const;
 };
 
 #endif

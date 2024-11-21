@@ -5,23 +5,22 @@
 #include "Animal.hpp"
 
 class Dog : public Animal {
-private:
-	std::string	_type;
 public:
 	// Default Constructor
 	Dog();
 	// Parameterized Constructor
-	Dog(const std::string& name);
+	Dog(const std::string& name) = delete;
 	// Destructor
 	~Dog();
 	// Copy Constructor
-	Dog(const Dog& other);
+	Dog(const Dog& other) = delete;
 	// Copy Assignment Operator
-	Dog& operator=(const Dog& other);
+	Dog& operator=(const Dog& other) = delete;
 
 	// Getters
 	// Setters
 	// Other
+	void makeSound(void) const;
 };
 
 #endif

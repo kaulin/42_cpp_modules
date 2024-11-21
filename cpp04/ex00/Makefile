@@ -1,9 +1,9 @@
 NAME		:= Zoology
 CXX			:= c++
-CXXFLAGS	:= -Wall -Wextra -Werror
+CXXFLAGS	:= -Wall -Wextra -Werror -std=c++11
 
 # SOURCES
-SRCS		:= main.cpp XXX.cpp
+SRCS		:= main.cpp Animal.cpp Cat.cpp Dog.cpp WrongAnimal.cpp WrongCat.cpp
 
 # OBJECTS
 BUILD_DIR	:= build/
@@ -11,7 +11,7 @@ OBJ			:= ${SRCS:.cpp=.o}
 OBJS		:= $(addprefix $(BUILD_DIR), $(OBJ))
 
 # HEADERS
-HEADERS		:= Animal.hpp Cat.hpp Dog.hpp
+HEADERS		:= Animal.hpp Cat.hpp Dog.hpp WrongAnimal.hpp WrongCat.hpp
 
 all: $(NAME)
 
