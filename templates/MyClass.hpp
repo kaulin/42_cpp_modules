@@ -11,10 +11,10 @@ public:
 	MyClass();
 	// Parameterized Constructor
 	MyClass(const std::string& name);
-	// Destructor
-	~MyClass();
 	// Copy Constructor
 	MyClass(const MyClass& other);
+	// Destructor
+	~MyClass();
 	// Copy Assignment Operator
 	MyClass& operator=(const MyClass& other);
 

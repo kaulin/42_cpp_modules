@@ -8,13 +8,13 @@ MyClass::MyClass () {
 MyClass::MyClass (const std::string& name) : _name(name) {
 	std::cout << "Parameterized constructor called." << std::endl;
 }
-// Destructor
-MyClass::~MyClass() {
-	std::cout << "Destructor called." << std::endl;
-}
 // Copy Constructor
 MyClass::MyClass(const MyClass& other) : _name(other._name) {
 	std::cout << "Copy constructor called." << std::endl;
+}
+// Destructor
+MyClass::~MyClass() {
+	std::cout << "Destructor called." << std::endl;
 }
 // Copy Assignment Operator
 MyClass& MyClass::operator=(const MyClass& other) {
