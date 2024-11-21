@@ -24,7 +24,7 @@ MyClass& MyClass::operator=(const MyClass& other) {
 	return *this;
 }
 // Getters
-std::string	MyClass::getName() { return _name;}
+const std::string&	MyClass::getName() const { return _name;}
 // Setters
 void	MyClass::setName(std::string name) { _name = name; }
 // Other

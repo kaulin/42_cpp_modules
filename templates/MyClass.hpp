@@ -19,7 +19,7 @@ public:
 	MyClass& operator=(const MyClass& other);
 
 	// Getters
-	std::string	getName(void);
+	const std::string&	getName() const;
 	// Setters
 	void		setName(std::string _name);
 	// Other
