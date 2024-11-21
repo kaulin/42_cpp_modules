@@ -3,9 +3,7 @@
 // Default Constructor
 Cat::Cat () {
 	std::cout << "Cat: Default constructor called." << std::endl;
-	std::cout << "Cat: type before: " << _type << std::endl;
 	_type = "Cat";
-	std::cout << "Cat: type after: " << _type << std::endl;
 }
 // Destructor
 Cat::~Cat() {
