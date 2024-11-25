@@ -18,9 +18,9 @@ MyClass::~MyClass() {
 }
 // Copy Assignment Operator
 MyClass& MyClass::operator=(const MyClass& other) {
+	std::cout << "Copy assignment operator called." << std::endl;
 	if (this == &other) return *this;
 	_name = other._name;
-	std::cout << "Copy assignment operator called." << std::endl;
 	return *this;
 }
 // Getters
