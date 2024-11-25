@@ -1,32 +1,36 @@
-#ifndef BUREAUCRAT_H
-#define BUREAUCRAT_H
+#ifndef FORM_H
+#define FORM_H
 
 #include <iostream>
 #include <exception>
+class Bureaucrat;
 
-class Bureaucrat {
+class Form {
 private:
 	const std::string	_name;
-	int					_grade;
+	bool				_signedStatus;
+	const int			_gradeToSign;
+	const int			_gradeToExec;
 	// Default Constructor
-	Bureaucrat();
+	Form();
 	// Copy Constructor
-	Bureaucrat(const Bureaucrat& other);
+	Form(const Form& other);
 	// Copy Assignment Operator
-	Bureaucrat& operator=(const Bureaucrat& other);
+	Form& operator=(const Form& other);
 public:
 	// Parameterized Constructor
-	Bureaucrat(const std::string& name, int grade);
+	Form(const std::string& name, const int gradeToSign, const int gradeToExec);
 	// Destructor
-	~Bureaucrat();
+	~Form();
 
 	// Getters
 	const std::string& getName() const;
-	int getGrade() const;
+	bool getSignedStatus() const;
+	int getGradeToSign() const;
+	int getGradeToExec() const;
 	// Setters
 	// Other
-	void promote();
-	void demote();
+	void beSigned(const Bureaucrat& bureaucrat);
 
 	// Exceptions
 	class GradeTooHighException : public std::exception {
@@ -40,6 +44,6 @@ public:
 };
 
 // Insertion Operator
-std::ostream& operator<< (std::ostream& os, const Bureaucrat& bureaucrat);
+std::ostream& operator<< (std::ostream& os, const Form& form);
 
 #endif

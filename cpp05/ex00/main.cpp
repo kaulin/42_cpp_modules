@@ -4,6 +4,14 @@
 int main(void) {
 	std::cout << "Creating a bureaucracy!\n";
 
+
+	std::cout << "\nTrying to init b with empty name\n";
+	try { 
+		Bureaucrat b("", 1);
+		std::cout << b << " created successfully!\n";
+	}
+	catch (std::exception & e) { std::cout << "Caught exception: " << e.what() << "\n"; }
+
 	std::cout << "\nTrying to init b with grade 0\n";
 	try { 
 		Bureaucrat b("b", 0);

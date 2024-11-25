@@ -8,8 +8,8 @@ Bureaucrat::Bureaucrat() : _name("NAME"), _grade(150) {
 Bureaucrat::Bureaucrat(const std::string& name, int grade) : _name(name) {
 	std::cout << "Bureaucrat: Parameterized constructor called." << std::endl;
 	if (name.length() == 0) throw std::invalid_argument("empty name");
-	if (grade < 1) throw Bureaucrat::GradeTooHighException();
-	if (grade > 150) throw Bureaucrat::GradeTooLowException();
+	if (grade < 1) throw Bureaucrat::GradeTooLowException();
+	if (grade > 150) throw Bureaucrat::GradeTooHighException();
 	_grade = grade;
 }
 // Copy Constructor
@@ -40,6 +40,15 @@ void Bureaucrat::promote() {
 void Bureaucrat::demote() {
 	if (_grade + 1 > 150) throw Bureaucrat::GradeTooLowException();
 	_grade++;
+}
+void Bureaucrat::signForm(Form& form) const {
+	try {
+		form.beSigned(*this);
+		std::cout << _name << " signed " << form.getName() << "\n";
+	}
+	catch (std::exception & e) {
+		std::cout << _name << " couln't sign " << form.getName() << " because " << e.what() << "\n";
+	}
 }
 
 // Exceptions

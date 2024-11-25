@@ -2,7 +2,8 @@
 #define BUREAUCRAT_H
 
 #include <iostream>
-#include <exception>
+#include <stdexcept>
+#include "Form.hpp"
 
 class Bureaucrat {
 private:
@@ -27,6 +28,7 @@ public:
 	// Other
 	void promote();
 	void demote();
+	void signForm(Form& form) const;
 
 	// Exceptions
 	class GradeTooHighException : public std::exception {
