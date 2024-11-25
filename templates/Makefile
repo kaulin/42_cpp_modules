@@ -1,6 +1,6 @@
 NAME		:= XXX
 CXX			:= c++
-CXXFLAGS	:= -Wall -Wextra -Werror
+CXXFLAGS	:= -Wall -Wextra -Werror -std=c++11
 
 # SOURCES
 SRCS		:= main.cpp XXX.cpp
