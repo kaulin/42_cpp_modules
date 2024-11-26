@@ -2,23 +2,23 @@
 
 // Default Constructor
 MyClass::MyClass () {
-	std::cout << "Default constructor called.\n";
+	std::cout << "MyClass: Default constructor called.\n";
 }
 // Parameterized Constructor
 MyClass::MyClass (const std::string& name) : _name(name) {
-	std::cout << "Parameterized constructor called.\n"
+	std::cout << "MyClass: Parameterized constructor called.\n"
 }
 // Copy Constructor
 MyClass::MyClass(const MyClass& other) : _name(other._name) {
-	std::cout << "Copy constructor called.\n";
+	std::cout << "MyClass: Copy constructor called.\n";
 }
 // Destructor
 MyClass::~MyClass() {
-	std::cout << "Destructor called.\n";
+	std::cout << "MyClass: Destructor called.\n";
 }
 // Copy Assignment Operator
 MyClass& MyClass::operator=(const MyClass& other) {
-	std::cout << "Copy assignment operator called.\n";
+	std::cout << "MyClass: Copy assignment operator called.\n";
 	if (this == &other) return *this;
 	_name = other._name;
 	return *this;
