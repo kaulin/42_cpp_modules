@@ -33,5 +33,9 @@ RobotomyRequestForm& RobotomyRequestForm::operator=(const RobotomyRequestForm& o
 // Setters
 // Other
 void RobotomyRequestForm::_implementEnactment() const {
-	std::cout << _target << " has been pardoned by Zaphod Beeblebrox!\n";
+	std::random_device rd;
+	std::mt19937 generator(rd());
+	std::uniform_int_distribution<int> distribution(0,1);
+	bool outcome = distribution(generator);
+	std::cout << _target << ((outcome) ? " has been robotomized!\n" : "'s robotomy failed!\n");
 }

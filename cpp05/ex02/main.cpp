@@ -1,6 +1,8 @@
 #include <iostream>
 #include "Bureaucrat.hpp"
 #include "PresidentialPardonForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "ShrubberyCreationForm.hpp"
 
 int main(void) {
 	std::cout << "Creating a bureaucracy!\n";
@@ -11,14 +13,73 @@ int main(void) {
 	}
 	catch (std::exception & e) { std::cout << "Caught exception: " << e.what() << "\n"; }
 
-	std::cout << "\nInit Presidential Pardon Form and Borgov the Bureaucrat with sufficient grade to sign and execute it\n";
+	std::cout << "\nTest Presidential Pardon Form with Borgov and Bubbles\n";
 	try { 
 		PresidentialPardonForm form("Kitty");
+		std::cout << form << "\n";
 		Bureaucrat borgov("Borgov", 1);
+		Bureaucrat bubbles("Bubbles", 26);
 		borgov.executeForm(form);
-		borgov.signForm(form);
+		bubbles.signForm(form);
+		bubbles.promote();
+		bubbles.signForm(form);
+		bubbles.executeForm(form);
 		borgov.signForm(form);
 		borgov.executeForm(form);
+	}
+	catch (std::exception & e) { std::cout << "Caught exception: " << e.what() << "\n"; }
+
+	std::cout << "\nTrying to init Robotomy Request Form with empty target\n";
+	try { 
+		RobotomyRequestForm form("");
+	}
+	catch (std::exception & e) { std::cout << "Caught exception: " << e.what() << "\n"; }
+
+	std::cout << "\nTest Robotomy Request Form with Borgov and Bubbles\n";
+	try { 
+		RobotomyRequestForm form("Kitty");
+		std::cout << form << "\n";
+		Bureaucrat borgov("Borgov", 1);
+		Bureaucrat bubbles("Bubbles", 73);
+		borgov.executeForm(form);
+		bubbles.signForm(form);
+		bubbles.promote();
+		bubbles.signForm(form);
+		bubbles.executeForm(form);
+		borgov.signForm(form);
+		borgov.executeForm(form);
+		borgov.executeForm(form);
+		borgov.executeForm(form);
+		borgov.executeForm(form);
+		borgov.executeForm(form);
+		borgov.executeForm(form);
+		borgov.executeForm(form);
+		borgov.executeForm(form);
+		borgov.executeForm(form);
+		borgov.executeForm(form);
+	}
+	catch (std::exception & e) { std::cout << "Caught exception: " << e.what() << "\n"; }
+
+std::cout << "\nTrying to init Shrubbery Creation Form with empty target\n";
+	try { 
+		ShrubberyCreationForm form("");
+	}
+	catch (std::exception & e) { std::cout << "Caught exception: " << e.what() << "\n"; }
+
+		std::cout << "\nTest Shrubbery Creation Form with Borgov and Bubbles\n";
+	try { 
+		ShrubberyCreationForm form("ResidentialDistrict42");
+		std::cout << form << "\n";
+		Bureaucrat borgov("Borgov", 1);
+		Bureaucrat bubbles("Bubbles", 146);
+		borgov.executeForm(form);
+		bubbles.signForm(form);
+		bubbles.promote();
+		bubbles.signForm(form);
+		bubbles.executeForm(form);
+		borgov.signForm(form);
+		borgov.executeForm(form);
+		std::cout << form << "\n";
 	}
 	catch (std::exception & e) { std::cout << "Caught exception: " << e.what() << "\n"; }
 

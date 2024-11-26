@@ -43,21 +43,25 @@ int main(void) {
 	std::cout << "\nFollowing the career of Bubbles the Bureaucrat:\n";
 	Bureaucrat bubbles("Bubbles", 150);
 	
-	std::cout << "\nTrying to demote " << bubbles << "\n";
+	std::cout << "Trying to demote " << bubbles << "\n";
 	try { 
 		bubbles.demote();
-		std::cout << bubbles << " demoted successfully!\n";
 	}
 	catch (std::exception & e) { std::cout << "Caught exception: " << e.what() << "\n"; }
 	
 	for (int i = 0; i < 150; i++) {
-		std::cout << "\nTrying to promote " << bubbles << "\n";
+		std::cout << "Trying to promote " << bubbles << "\n";
 		try { 
 			bubbles.promote();
-			std::cout << bubbles << " promoted successfully!\n";
 		}
 		catch (std::exception & e) { std::cout << "Caught exception: " << e.what() << "\n"; }
 	}
 	
+	std::cout << "Trying to demote " << bubbles << "\n";
+	try { 
+		bubbles.demote();
+	}
+	catch (std::exception & e) { std::cout << "Caught exception: " << e.what() << "\n"; }
+
 	return 0;
 }

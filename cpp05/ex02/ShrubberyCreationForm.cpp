@@ -33,5 +33,20 @@ ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationF
 // Setters
 // Other
 void ShrubberyCreationForm::_implementEnactment() const {
-	std::cout << _target << " has been pardoned by Zaphod Beeblebrox!\n";
+	std::string path = _target + "_shrubbery";
+	std::ofstream outfile;
+	outfile.open(path);
+	if (!outfile) { std::cout << "Missing permission of the landowner to plant a shrubbery at " << _target << "\n"; }
+	else {
+		outfile << "               ,@@@@@@@,\n";
+		outfile << "       ,,,.   ,@@@@@@/@@,  .oo8888o.\n";
+		outfile << "    ,&%%&%&&%,@@@@@/@@@@@@,8888\\88/8o\n";
+		outfile << "   ,%&\\%&&%&&%,@@@\\@@@/@@@88\\88888/88'\n";
+		outfile << "   %&&%&%&/%&&%@@\\@@/ /@@@88888\\88888'\n";
+		outfile << "   %&&%/ %&%%&&@@\\ V /@@' `88\\8 `/88'\n";
+		outfile << "   `&%\\ ` /%&'    |.|        \\ '|8'\n";
+		outfile << "       |o|        | |         | |\n";
+		outfile << "       |.|        | |         | |\n";
+		outfile << "    \\\\/ ._\\//_/__/  ,\\_//__\\\\/.  \\_//__/_\n";
+	}
 }

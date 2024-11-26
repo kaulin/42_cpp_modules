@@ -44,12 +44,12 @@ int AForm::getGradeToExec() const { return _gradeToExec; }
 // Setters
 // Other
 void AForm::beSigned(const Bureaucrat& bureaucrat) {
-	if (_signedStatus) throw std::runtime_error("form has already been signed");
+	if (_signedStatus) throw std::runtime_error("form already signed");
 	if (bureaucrat.getGrade() > _gradeToSign) throw AForm::GradeTooLowException();
 	_signedStatus = true;\
 }
 void AForm::execute(Bureaucrat const & executor) const {
-	if (!_signedStatus) throw std::runtime_error("form has not been signed");
+	if (!_signedStatus) throw std::runtime_error("form not signed");
 	if (executor.getGrade() > _gradeToExec) throw AForm::GradeTooLowException();
 	_implementEnactment();
 }
@@ -60,6 +60,6 @@ const char* AForm::GradeTooHighException::what() const throw () { return "grade 
 
 // Insertion Operator
 std::ostream& operator<<(std::ostream& os, const AForm& aform) {
-	os << aform.getName() << ":\nGrade to sign = " << aform.getGradeToSign() << "\nGrade to execute = " << aform.getGradeToExec() << "\nStatus: " << ((aform.getSignedStatus()) ? "signed\n" : "not signed\n");
+	os << aform.getName() << ":\n	Grade to sign = " << aform.getGradeToSign() << "\n	Grade to execute = " << aform.getGradeToExec() << "\n	Status: " << ((aform.getSignedStatus()) ? "signed" : "not signed");
 	return os;
 }

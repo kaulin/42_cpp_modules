@@ -67,17 +67,18 @@ int main(void) {
 	std::cout << f75 << "\n";
 	std::cout << f150 << "\n";
 
-
+	bubbles.signForm(f1);
+	bubbles.signForm(f75);
+	bubbles.signForm(f150);
 	while (!(f1.getSignedStatus() && f75.getSignedStatus() && f150.getSignedStatus())) {
-		bubbles.signForm(f1);
-		bubbles.signForm(f75);
-		bubbles.signForm(f150);
+		if (!(f1.getSignedStatus())) bubbles.signForm(f1);
+		if (!(f75.getSignedStatus())) bubbles.signForm(f75);
+		if (!(f150.getSignedStatus())) bubbles.signForm(f150);
 		try
 		{
 			bubbles.promote();
-			std::cout << bubbles << ", earned a promotion!\n";
 		}
-		catch(const std::exception& e) { std::cout << bubbles << ", could not be promoted because: " << e.what() << '\n'; }
+		catch(const std::exception& e) { std::cout << bubbles << ", could not be promoted because " << e.what() << '\n'; }
 	}
 	
 	std::cout << "\nEmployee of the month: " << bubbles << "\n";

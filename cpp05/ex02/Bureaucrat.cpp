@@ -36,10 +36,12 @@ void Bureaucrat::promote() {
 	if (_grade - 1 < 1)
 		throw Bureaucrat::GradeTooHighException();
 	_grade--;
+	std::cout << _name << " the Bureaucrat promoted to grade " << _grade << "\n";
 }
 void Bureaucrat::demote() {
 	if (_grade + 1 > 150) throw Bureaucrat::GradeTooLowException();
 	_grade++;
+		std::cout << _name << " the Bureaucrat demoted to grade " << _grade << "\n";
 }
 void Bureaucrat::signForm(AForm& form) const {
 	try {
@@ -47,7 +49,7 @@ void Bureaucrat::signForm(AForm& form) const {
 		std::cout << _name << " signed " << form.getName() << "\n";
 	}
 	catch (std::exception & e) {
-		std::cout << _name << " couln't sign " << form.getName() << " because " << e.what() << "\n";
+		std::cout << _name << " couldn't sign " << form.getName() << " because " << e.what() << "\n";
 	}
 }
 void Bureaucrat::executeForm(AForm const & form) const {
@@ -56,7 +58,7 @@ void Bureaucrat::executeForm(AForm const & form) const {
 		std::cout << _name << " executed " << form.getName() << "\n";
 	}
 	catch (std::exception & e) {
-		std::cout << _name << " couln't execute " << form.getName() << " because " << e.what() << "\n";
+		std::cout << _name << " couldn't execute " << form.getName() << " because " << e.what() << "\n";
 	}
 }
 

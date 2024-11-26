@@ -36,10 +36,12 @@ void Bureaucrat::promote() {
 	if (_grade - 1 < 1)
 		throw Bureaucrat::GradeTooHighException();
 	_grade--;
+	std::cout << _name << " the Bureaucrat promoted to grade " << _grade << "\n";
 }
 void Bureaucrat::demote() {
 	if (_grade + 1 > 150) throw Bureaucrat::GradeTooLowException();
 	_grade++;
+		std::cout << _name << " the Bureaucrat demoted to grade " << _grade << "\n";
 }
 
 // Exceptions
