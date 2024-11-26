@@ -1,5 +1,4 @@
-#ifndef MYCLASS_H
-#define MYCLASS_H
+#pragma once
 
 #include <iostream>
 
@@ -24,5 +23,3 @@ public:
 	void		setName(std::string _name);
 	// Other
 };
-
-#endif
