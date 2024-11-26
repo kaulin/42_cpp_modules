@@ -1,5 +1,4 @@
-#ifndef BUREAUCRAT_H
-#define BUREAUCRAT_H
+#pragma once
 
 #include <iostream>
 #include <exception>
@@ -41,5 +40,3 @@ public:
 
 // Insertion Operator
 std::ostream& operator<< (std::ostream& os, const Bureaucrat& bureaucrat);
-
-#endif

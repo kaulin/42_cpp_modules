@@ -42,7 +42,7 @@ int Form::getGradeToExec() const { return _gradeToExec; }
 // Setters
 // Other
 void Form::beSigned(const Bureaucrat& bureaucrat) {
-	if (_signedStatus) throw std::invalid_argument("form already signed");
+	if (_signedStatus) throw std::runtime_error("form already signed");
 	if (bureaucrat.getGrade() > _gradeToSign) throw Form::GradeTooLowException();
 	_signedStatus = true;
 }

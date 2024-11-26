@@ -2,25 +2,28 @@
 
 #include <iostream>
 #include <exception>
+
 class Bureaucrat;
 
-class Form {
+class AForm {
 private:
 	const std::string	_name;
 	bool				_signedStatus;
 	const int			_gradeToSign;
 	const int			_gradeToExec;
+protected:
 	// Default Constructor
-	Form();
+	AForm();
 	// Copy Constructor
-	Form(const Form& other);
+	AForm(const AForm& other);
 	// Copy Assignment Operator
-	Form& operator=(const Form& other);
+	AForm& operator=(const AForm& other);
+	virtual void _implementEnactment() const = 0;
 public:
 	// Parameterized Constructor
-	Form(const std::string& name, const int gradeToSign, const int gradeToExec);
+	AForm(const std::string& name, const int gradeToSign, const int gradeToExec);
 	// Destructor
-	~Form();
+	virtual ~AForm();
 
 	// Getters
 	const std::string& getName() const;
@@ -30,6 +33,7 @@ public:
 	// Setters
 	// Other
 	void beSigned(const Bureaucrat& bureaucrat);
+	void execute(Bureaucrat const & executor) const;
 
 	// Exceptions
 	class GradeTooHighException : public std::exception {
@@ -43,4 +47,4 @@ public:
 };
 
 // Insertion Operator
-std::ostream& operator<< (std::ostream& os, const Form& form);
+std::ostream& operator<< (std::ostream& os, const AForm& aform);

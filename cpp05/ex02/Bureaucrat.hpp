@@ -1,35 +1,34 @@
 #pragma once
 
 #include <iostream>
-#include <exception>
-class Bureaucrat;
+#include <stdexcept>
+#include "AForm.hpp"
 
-class Form {
+class Bureaucrat {
 private:
 	const std::string	_name;
-	bool				_signedStatus;
-	const int			_gradeToSign;
-	const int			_gradeToExec;
+	int					_grade;
 	// Default Constructor
-	Form();
+	Bureaucrat();
 	// Copy Constructor
-	Form(const Form& other);
+	Bureaucrat(const Bureaucrat& other);
 	// Copy Assignment Operator
-	Form& operator=(const Form& other);
+	Bureaucrat& operator=(const Bureaucrat& other);
 public:
 	// Parameterized Constructor
-	Form(const std::string& name, const int gradeToSign, const int gradeToExec);
+	Bureaucrat(const std::string& name, int grade);
 	// Destructor
-	~Form();
+	~Bureaucrat();
 
 	// Getters
 	const std::string& getName() const;
-	bool getSignedStatus() const;
-	int getGradeToSign() const;
-	int getGradeToExec() const;
+	int getGrade() const;
 	// Setters
 	// Other
-	void beSigned(const Bureaucrat& bureaucrat);
+	void promote();
+	void demote();
+	void signForm(AForm& form) const;
+	void executeForm(AForm const & form) const;
 
 	// Exceptions
 	class GradeTooHighException : public std::exception {
@@ -43,4 +42,4 @@ public:
 };
 
 // Insertion Operator
-std::ostream& operator<< (std::ostream& os, const Form& form);
+std::ostream& operator<< (std::ostream& os, const Bureaucrat& bureaucrat);

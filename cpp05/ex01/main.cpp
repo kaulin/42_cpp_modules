@@ -77,10 +77,7 @@ int main(void) {
 			bubbles.promote();
 			std::cout << bubbles << ", earned a promotion!\n";
 		}
-		catch(const std::exception& e)
-		{
-			std::cout << bubbles << ", could not be promoted because: " << e.what() << '\n';
-		}
+		catch(const std::exception& e) { std::cout << bubbles << ", could not be promoted because: " << e.what() << '\n'; }
 	}
 	
 	std::cout << "\nEmployee of the month: " << bubbles << "\n";
