@@ -2,11 +2,11 @@
 
 // Default Constructor
 Bureaucrat::Bureaucrat() : _name("NAME"), _grade(150) {
-	std::cout << "Bureaucrat: Default constructor called." << std::endl;
+	std::cout << "Bureaucrat: Default constructor called.\n";;
 }
 // Parameterized Constructor
 Bureaucrat::Bureaucrat(const std::string& name, int grade) : _name(name) {
-	std::cout << "Bureaucrat: Parameterized constructor called." << std::endl;
+	std::cout << "Bureaucrat: Parameterized constructor called.\n";;
 	if (name.length() == 0) throw std::invalid_argument("empty name");
 	if (grade < 1) throw Bureaucrat::GradeTooLowException();
 	if (grade > 150) throw Bureaucrat::GradeTooHighException();
@@ -14,15 +14,15 @@ Bureaucrat::Bureaucrat(const std::string& name, int grade) : _name(name) {
 }
 // Copy Constructor
 Bureaucrat::Bureaucrat(const Bureaucrat& other) : _name(other._name), _grade(other._grade) {
-	std::cout << "Bureaucrat: Copy constructor called." << std::endl;
+	std::cout << "Bureaucrat: Copy constructor called.\n";;
 }
 // Destructor
 Bureaucrat::~Bureaucrat() {
-	std::cout << "Bureaucrat: Destructor called." << std::endl;
+	std::cout << "Bureaucrat: Destructor called.\n";;
 }
 // Copy Assignment Operator
 Bureaucrat& Bureaucrat::operator=(const Bureaucrat& other) {
-	std::cout << "Bureaucrat: Copy assignment operator called." << std::endl;
+	std::cout << "Bureaucrat: Copy assignment operator called.\n";;
 	if (this == &other) return *this;
 	_grade = other._grade;
 	return *this;
