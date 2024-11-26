@@ -60,6 +60,6 @@ const char* AForm::GradeTooHighException::what() const throw () { return "grade 
 
 // Insertion Operator
 std::ostream& operator<<(std::ostream& os, const AForm& aform) {
-	os << aform.getName() << ":\n	Grade to sign = " << aform.getGradeToSign() << "\n	Grade to execute = " << aform.getGradeToExec() << "\n	Status: " << ((aform.getSignedStatus()) ? "signed" : "not signed");
+	os << aform.getName() << ":\n Grade to sign = " << aform.getGradeToSign() << "\n Grade to execute = " << aform.getGradeToExec() << "\n Status: " << ((aform.getSignedStatus()) ? "signed" : "not signed");
 	return os;
 }

@@ -16,9 +16,10 @@ int main(void) {
 	std::cout << "\nTest Presidential Pardon Form with Borgov and Bubbles\n";
 	try { 
 		PresidentialPardonForm form("Kitty");
-		std::cout << form << "\n";
+		std::cout << "Created " << form << "\n";
 		Bureaucrat borgov("Borgov", 1);
 		Bureaucrat bubbles("Bubbles", 26);
+		std::cout << "Created " << borgov << ", and " << bubbles << "\n";
 		borgov.executeForm(form);
 		bubbles.signForm(form);
 		bubbles.promote();
@@ -26,6 +27,7 @@ int main(void) {
 		bubbles.executeForm(form);
 		borgov.signForm(form);
 		borgov.executeForm(form);
+		std::cout << form << "\n";
 	}
 	catch (std::exception & e) { std::cout << "Caught exception: " << e.what() << "\n"; }
 
@@ -37,10 +39,11 @@ int main(void) {
 
 	std::cout << "\nTest Robotomy Request Form with Borgov and Bubbles\n";
 	try { 
-		RobotomyRequestForm form("Kitty");
-		std::cout << form << "\n";
+		RobotomyRequestForm form("Marvin");
+		std::cout << "Created " << form << "\n";
 		Bureaucrat borgov("Borgov", 1);
 		Bureaucrat bubbles("Bubbles", 73);
+		std::cout << "Created " << borgov << ", and " << bubbles << "\n";
 		borgov.executeForm(form);
 		bubbles.signForm(form);
 		bubbles.promote();
@@ -57,6 +60,7 @@ int main(void) {
 		borgov.executeForm(form);
 		borgov.executeForm(form);
 		borgov.executeForm(form);
+		std::cout << form << "\n";
 	}
 	catch (std::exception & e) { std::cout << "Caught exception: " << e.what() << "\n"; }
 
@@ -69,9 +73,10 @@ std::cout << "\nTrying to init Shrubbery Creation Form with empty target\n";
 		std::cout << "\nTest Shrubbery Creation Form with Borgov and Bubbles\n";
 	try { 
 		ShrubberyCreationForm form("ResidentialDistrict42");
-		std::cout << form << "\n";
+		std::cout << "Created " << form << "\n";
 		Bureaucrat borgov("Borgov", 1);
 		Bureaucrat bubbles("Bubbles", 146);
+		std::cout << "Created " << borgov << ", and " << bubbles << "\n";
 		borgov.executeForm(form);
 		bubbles.signForm(form);
 		bubbles.promote();
