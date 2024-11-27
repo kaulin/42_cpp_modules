@@ -32,7 +32,7 @@ AForm* Intern::makePresidentialPardonForm(const std::string& target) const {
 	return new PresidentialPardonForm(target);
 }
 AForm* Intern::makeForm(const std::string& formName, const std::string& formTarget) const {
-	std::string forms[3] = {
+	std::string formNames[3] = {
 		"shrubbery creation", 
 		"robotomy request", 
 		"presidential pardon"};
@@ -41,16 +41,18 @@ AForm* Intern::makeForm(const std::string& formName, const std::string& formTarg
 		&Intern::makeRobotomyRequestForm, 
 		&Intern::makePresidentialPardonForm };
 	AForm* form = nullptr;
-	int found = 2;
-	while (found && formName != forms[found]) found--;
-	switch (found)
+	int index = 2;
+	while (index >= 0 && formName != formNames[index]) {
+		index--;
+	}
+	switch (index)
 	{
-		case 0:
+		case -1:
 			std::cout << "The intern must have mixed up the form names again...\n";
 			break;
 		default:
 			try {
-				form = (this->*functions[found])(formTarget);
+				form = (this->*functions[index])(formTarget);
 				std::cout << "Intern creates " << form->getName() << "\n";
 			}
 			catch (std::exception& e) { std::cout << "Intern failed to create form because " << e.what() << "\n"; }

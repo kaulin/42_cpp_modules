@@ -15,24 +15,50 @@ int main(void) {
 	Intern inka;
 	AForm* form = nullptr;
 
-	std::cout << "\nFrom init to execute\n";
+	std::cout << "\nPardon: From init to execute\n";
+	try { 
+		form = inka.makeForm("presidential pardon", "Vilja");
+		if (!form) throw std::invalid_argument ("form creation failed");
+		std::cout << *form << "\n";
+		bubbles.signForm(*form);
+		borgov.executeForm(*form);
+		std::cout << *form << "\n";
+		delete form;
+	}
+	catch (std::exception & e) { std::cout << "Caught exception: " << e.what() << "\n"; }
+
+	std::cout << "\nRobotomy: From init to execute\n";
+	try { 
+		form = inka.makeForm("robotomy request", "Marvin");
+		if (!form) throw std::invalid_argument ("form creation failed");
+		std::cout << *form << "\n";
+		bubbles.signForm(*form);
+		borgov.executeForm(*form);
+		std::cout << *form << "\n";
+		delete form;
+	}
+	catch (std::exception & e) { std::cout << "Caught exception: " << e.what() << "\n"; }
+
+	std::cout << "\nShrubbery: From init to execute\n";
 	try { 
 		form = inka.makeForm("shrubbery creation", "ResidentialDistrict42");
 		if (!form) throw std::invalid_argument ("form creation failed");
-		std::cout << form << "\n";
+		std::cout << *form << "\n";
 		bubbles.signForm(*form);
 		borgov.executeForm(*form);
+		std::cout << *form << "\n";
 		delete form;
 	}
 	catch (std::exception & e) { std::cout << "Caught exception: " << e.what() << "\n"; }
 
 	std::cout << "\nFailed form init, empty target\n";
 	try { 
-		form = inka.makeForm("make shrubbery", "");
+		form = inka.makeForm("shrubbery creation", "");
 		if (!form) throw std::invalid_argument ("form creation failed");
-		std::cout << form << "\n";
+		std::cout << *form << "\n";
 		bubbles.signForm(*form);
 		borgov.executeForm(*form);
+		std::cout << *form << "\n";
 		delete form;
 	}
 	catch (std::exception & e) { std::cout << "Caught exception: " << e.what() << "\n"; }
@@ -41,9 +67,10 @@ int main(void) {
 	try { 
 		form = inka.makeForm("", "ResidentialDistrict42");
 		if (!form) throw std::invalid_argument ("form creation failed");
-		std::cout << form << "\n";
+		std::cout << *form << "\n";
 		bubbles.signForm(*form);
 		borgov.executeForm(*form);
+		std::cout << *form << "\n";
 		delete form;
 	}
 	catch (std::exception & e) { std::cout << "Caught exception: " << e.what() << "\n"; }
@@ -52,9 +79,10 @@ int main(void) {
 	try { 
 		form = inka.makeForm("overthrow government", "asap");
 		if (!form) throw std::invalid_argument ("form creation failed");
-		std::cout << form << "\n";
+		std::cout << *form << "\n";
 		bubbles.signForm(*form);
 		borgov.executeForm(*form);
+		std::cout << *form << "\n";
 		delete form;
 	}
 	catch (std::exception & e) { std::cout << "Caught exception: " << e.what() << "\n"; }
