@@ -15,7 +15,7 @@ RobotomyRequestForm::RobotomyRequestForm(const std::string& target) :
 }
 // Copy Constructor
 RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm& other) :  
-	AForm("RobotomyRequestForm", 72, 45), 
+	AForm(other), 
 	_target(other._target) {
 	std::cout << "RobotomyRequestForm: Copy constructor called.\n";;
 }

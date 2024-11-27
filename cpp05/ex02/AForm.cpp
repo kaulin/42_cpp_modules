@@ -21,7 +21,7 @@ AForm::AForm(const std::string& name, const int gradeToSign, const int gradeToEx
 // Copy Constructor
 AForm::AForm(const AForm& other) : 
 	_name(other._name), 
-	_signedStatus(false), 
+	_signedStatus(other._signedStatus), 
 	_gradeToSign(other._gradeToSign), 
 	_gradeToExec(other._gradeToExec) {
 	std::cout << "AForm: Copy constructor called.\n";;
@@ -34,6 +34,7 @@ AForm::~AForm() {
 AForm& AForm::operator=(const AForm& other) {
 	std::cout << "AForm: Copy assignment operator called.\n";;
 	if (this == &other) return *this;
+	_signedStatus = other._signedStatus;
 	return *this;
 }
 // Getters

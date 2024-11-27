@@ -15,7 +15,7 @@ PresidentialPardonForm::PresidentialPardonForm(const std::string& target) :
 }
 // Copy Constructor
 PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm& other) :  
-	AForm("PresidentialPardonForm", 25, 5), 
+	AForm(other),
 	_target(other._target) {
 	std::cout << "PresidentialPardonForm: Copy constructor called.\n";;
 }

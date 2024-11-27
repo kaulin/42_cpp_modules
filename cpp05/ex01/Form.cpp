@@ -19,7 +19,7 @@ Form::Form(const std::string& name, const int gradeToSign, const int gradeToExec
 // Copy Constructor
 Form::Form(const Form& other) : 
 	_name(other._name), 
-	_signedStatus(false), 
+	_signedStatus(other._signedStatus), 
 	_gradeToSign(other._gradeToSign), 
 	_gradeToExec(other._gradeToExec) {
 	std::cout << "Form: Copy constructor called.\n";;
@@ -32,6 +32,7 @@ Form::~Form() {
 Form& Form::operator=(const Form& other) {
 	std::cout << "Form: Copy assignment operator called.\n";;
 	if (this == &other) return *this;
+	_signedStatus = other._signedStatus;
 	return *this;
 }
 // Getters
