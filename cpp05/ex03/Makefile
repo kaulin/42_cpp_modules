@@ -3,7 +3,7 @@ CXX			:= c++
 CXXFLAGS	:= -Wall -Wextra -Werror
 
 # SOURCES
-SRCS		:= main.cpp Bureaucrat.cpp AForm.cpp PresidentialPardonForm.cpp RobotomyRequestForm.cpp ShrubberyCreationForm.cpp
+SRCS		:= main.cpp Bureaucrat.cpp AForm.cpp PresidentialPardonForm.cpp RobotomyRequestForm.cpp ShrubberyCreationForm.cpp Intern.cpp
 
 # OBJECTS
 BUILD_DIR	:= build/
@@ -11,7 +11,7 @@ OBJ			:= ${SRCS:.cpp=.o}
 OBJS		:= $(addprefix $(BUILD_DIR), $(OBJ))
 
 # HEADERS
-HEADERS		:= Bureaucrat.hpp AForm.hpp PresidentialPardonForm.hpp RobotomyRequestForm.hpp ShrubberyCreationForm.hpp
+HEADERS		:= Bureaucrat.hpp AForm.hpp PresidentialPardonForm.hpp RobotomyRequestForm.hpp ShrubberyCreationForm.hpp Intern.hpp
 
 all: $(NAME)
 

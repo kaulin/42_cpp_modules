@@ -12,7 +12,7 @@ Form::Form(const std::string& name, const int gradeToSign, const int gradeToExec
 	_gradeToSign(gradeToSign), 
 	_gradeToExec(gradeToExec) {
 	std::cout << "Form: Parameterized constructor called.\n";;
-	if (name.length() == 0) throw std::invalid_argument("empty name");
+	if (name.length() == 0) throw std::invalid_argument("empty string");
 	if (gradeToSign < 1 || gradeToExec < 1) throw Form::GradeTooHighException();
 	if (gradeToSign > 150 || gradeToExec > 150) throw Form::GradeTooLowException();
 }

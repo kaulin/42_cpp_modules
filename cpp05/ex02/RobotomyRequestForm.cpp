@@ -11,7 +11,7 @@ RobotomyRequestForm::RobotomyRequestForm(const std::string& target) :
 	AForm("RobotomyRequestForm", 72, 45), 
 	_target(target) {
 	std::cout << "RobotomyRequestForm: Parameterized constructor called.\n";;
-	if (target.length() == 0) throw std::invalid_argument("empty name");
+	if (target.length() == 0) throw std::invalid_argument("empty string");
 }
 // Copy Constructor
 RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm& other) :  

@@ -3,88 +3,59 @@
 #include "PresidentialPardonForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "ShrubberyCreationForm.hpp"
+#include "Intern.hpp"
 
 int main(void) {
 	std::cout << "Creating a bureaucracy!\n";
-	
-	std::cout << "\nTrying to init Presidential Pardon Form with empty target\n";
-	try { 
-		PresidentialPardonForm form("");
-	}
-	catch (std::exception & e) { std::cout << "Caught exception: " << e.what() << "\n"; }
 
-	std::cout << "\nTest Presidential Pardon Form with Borgov and Bubbles\n";
+	Bureaucrat borgov("Borgov", 1);
+	std::cout << "Created " << borgov << "\n";
+	Bureaucrat bubbles("Bubbles", 25);
+	std::cout << "Created " << bubbles << "\n";
+	Intern inka;
+	AForm* form = nullptr;
+
+	std::cout << "\nFrom init to execute\n";
 	try { 
-		PresidentialPardonForm form("Kitty");
-		std::cout << "Created " << form << "\n";
-		Bureaucrat borgov("Borgov", 1);
-		Bureaucrat bubbles("Bubbles", 26);
-		std::cout << "Created " << borgov << ", and " << bubbles << "\n";
-		borgov.executeForm(form);
-		bubbles.signForm(form);
-		bubbles.promote();
-		bubbles.signForm(form);
-		bubbles.executeForm(form);
-		borgov.signForm(form);
-		borgov.executeForm(form);
+		form = inka.makeForm("shrubbery creation", "ResidentialDistrict42");
+		if (!form) throw std::invalid_argument ("form creation failed");
 		std::cout << form << "\n";
+		bubbles.signForm(*form);
+		borgov.executeForm(*form);
+		delete form;
 	}
 	catch (std::exception & e) { std::cout << "Caught exception: " << e.what() << "\n"; }
 
-	std::cout << "\nTrying to init Robotomy Request Form with empty target\n";
+	std::cout << "\nFailed form init, empty target\n";
 	try { 
-		RobotomyRequestForm form("");
-	}
-	catch (std::exception & e) { std::cout << "Caught exception: " << e.what() << "\n"; }
-
-	std::cout << "\nTest Robotomy Request Form with Borgov and Bubbles\n";
-	try { 
-		RobotomyRequestForm form("Marvin");
-		std::cout << "Created " << form << "\n";
-		Bureaucrat borgov("Borgov", 1);
-		Bureaucrat bubbles("Bubbles", 73);
-		std::cout << "Created " << borgov << ", and " << bubbles << "\n";
-		borgov.executeForm(form);
-		bubbles.signForm(form);
-		bubbles.promote();
-		bubbles.signForm(form);
-		bubbles.executeForm(form);
-		borgov.signForm(form);
-		borgov.executeForm(form);
-		borgov.executeForm(form);
-		borgov.executeForm(form);
-		borgov.executeForm(form);
-		borgov.executeForm(form);
-		borgov.executeForm(form);
-		borgov.executeForm(form);
-		borgov.executeForm(form);
-		borgov.executeForm(form);
-		borgov.executeForm(form);
+		form = inka.makeForm("make shrubbery", "");
+		if (!form) throw std::invalid_argument ("form creation failed");
 		std::cout << form << "\n";
+		bubbles.signForm(*form);
+		borgov.executeForm(*form);
+		delete form;
 	}
 	catch (std::exception & e) { std::cout << "Caught exception: " << e.what() << "\n"; }
 
-std::cout << "\nTrying to init Shrubbery Creation Form with empty target\n";
+	std::cout << "\nFailed form init, empty form name\n";
 	try { 
-		ShrubberyCreationForm form("");
-	}
-	catch (std::exception & e) { std::cout << "Caught exception: " << e.what() << "\n"; }
-
-		std::cout << "\nTest Shrubbery Creation Form with Borgov and Bubbles\n";
-	try { 
-		ShrubberyCreationForm form("ResidentialDistrict42");
-		std::cout << "Created " << form << "\n";
-		Bureaucrat borgov("Borgov", 1);
-		Bureaucrat bubbles("Bubbles", 146);
-		std::cout << "Created " << borgov << ", and " << bubbles << "\n";
-		borgov.executeForm(form);
-		bubbles.signForm(form);
-		bubbles.promote();
-		bubbles.signForm(form);
-		bubbles.executeForm(form);
-		borgov.signForm(form);
-		borgov.executeForm(form);
+		form = inka.makeForm("", "ResidentialDistrict42");
+		if (!form) throw std::invalid_argument ("form creation failed");
 		std::cout << form << "\n";
+		bubbles.signForm(*form);
+		borgov.executeForm(*form);
+		delete form;
+	}
+	catch (std::exception & e) { std::cout << "Caught exception: " << e.what() << "\n"; }
+
+	std::cout << "\nFailed form init, unknown form type\n";
+	try { 
+		form = inka.makeForm("overthrow government", "asap");
+		if (!form) throw std::invalid_argument ("form creation failed");
+		std::cout << form << "\n";
+		bubbles.signForm(*form);
+		borgov.executeForm(*form);
+		delete form;
 	}
 	catch (std::exception & e) { std::cout << "Caught exception: " << e.what() << "\n"; }
 

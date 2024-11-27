@@ -14,7 +14,7 @@ AForm::AForm(const std::string& name, const int gradeToSign, const int gradeToEx
 	_gradeToSign(gradeToSign), 
 	_gradeToExec(gradeToExec) {
 	std::cout << "AForm: Parameterized constructor called.\n";;
-	if (name.length() == 0) throw std::invalid_argument("empty name");
+	if (name.length() == 0) throw std::invalid_argument("empty string");
 	if (gradeToSign < 1 || gradeToExec < 1) throw AForm::GradeTooHighException();
 	if (gradeToSign > 150 || gradeToExec > 150) throw AForm::GradeTooLowException();
 }

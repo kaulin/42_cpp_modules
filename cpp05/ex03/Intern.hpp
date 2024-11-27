@@ -1,25 +1,26 @@
 #pragma once
 
 #include <iostream>
+#include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 
-class MyClass {
+class Intern {
 private:
-	std::string	_name;
+	// Copy Constructor
+	Intern(const Intern& other);
+	// Copy Assignment Operator
+	Intern& operator=(const Intern& other);
+	AForm* makeShrubberyCreationForm(const std::string& target) const;
+	AForm* makeRobotomyRequestForm(const std::string& target) const;
+	AForm* makePresidentialPardonForm(const std::string& target) const;
 public:
 	// Default Constructor
-	MyClass();
-	// Parameterized Constructor
-	MyClass(const std::string& name);
-	// Copy Constructor
-	MyClass(const MyClass& other);
+	Intern();
 	// Destructor
-	~MyClass();
-	// Copy Assignment Operator
-	MyClass& operator=(const MyClass& other);
-
+	~Intern();
 	// Getters
-	const std::string&	getName() const;
 	// Setters
-	void		setName(std::string _name);
 	// Other
+	AForm* makeForm(const std::string& formName, const std::string& formTarget) const;
 };

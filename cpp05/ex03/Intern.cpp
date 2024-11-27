@@ -1,30 +1,59 @@
-#include "MyClass.hpp"
+#include "Intern.hpp"
 
 // Default Constructor
-MyClass::MyClass () {
-	std::cout << "Default constructor called.\n";;
-}
-// Parameterized Constructor
-MyClass::MyClass (const std::string& name) : _name(name) {
-	std::cout << "Parameterized constructor called.\n";;
+Intern::Intern () {
+	std::cout << "Intern: Default constructor called.\n";;
 }
 // Copy Constructor
-MyClass::MyClass(const MyClass& other) : _name(other._name) {
-	std::cout << "Copy constructor called.\n";;
+Intern::Intern(const Intern& other) {
+	std::cout << "Intern: Copy constructor called.\n";;
+	(void)other;
 }
 // Destructor
-MyClass::~MyClass() {
-	std::cout << "Destructor called.\n";;
+Intern::~Intern() {
+	std::cout << "Intern: Destructor called.\n";;
 }
 // Copy Assignment Operator
-MyClass& MyClass::operator=(const MyClass& other) {
-	std::cout << "Copy assignment operator called.\n";;
+Intern& Intern::operator=(const Intern& other) {
+	std::cout << "Intern: Copy assignment operator called.\n";;
 	if (this == &other) return *this;
-	_name = other._name;
 	return *this;
 }
 // Getters
-const std::string&	MyClass::getName() const { return _name;}
 // Setters
-void	MyClass::setName(std::string name) { _name = name; }
 // Other
+AForm* Intern::makeShrubberyCreationForm(const std::string& target) const {
+	return new ShrubberyCreationForm(target);
+}
+AForm* Intern::makeRobotomyRequestForm(const std::string& target) const {
+	return new RobotomyRequestForm(target);
+}
+AForm* Intern::makePresidentialPardonForm(const std::string& target) const {
+	return new PresidentialPardonForm(target);
+}
+AForm* Intern::makeForm(const std::string& formName, const std::string& formTarget) const {
+	std::string forms[3] = {
+		"shrubbery creation", 
+		"robotomy request", 
+		"presidential pardon"};
+	AForm* (Intern::*functions[3])(const std::string& target) const = { 
+		&Intern::makeShrubberyCreationForm, 
+		&Intern::makeRobotomyRequestForm, 
+		&Intern::makePresidentialPardonForm };
+	AForm* form = nullptr;
+	int found = 2;
+	while (found && formName != forms[found]) found--;
+	switch (found)
+	{
+		case 0:
+			std::cout << "The intern must have mixed up the form names again...\n";
+			break;
+		default:
+			try {
+				form = (this->*functions[found])(formTarget);
+				std::cout << "Intern creates " << form->getName() << "\n";
+			}
+			catch (std::exception& e) { std::cout << "Intern failed to create form because " << e.what() << "\n"; }
+	}
+	return form;
+}

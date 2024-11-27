@@ -11,7 +11,7 @@ PresidentialPardonForm::PresidentialPardonForm(const std::string& target) :
 	AForm("PresidentialPardonForm", 25, 5), 
 	_target(target) {
 	std::cout << "PresidentialPardonForm: Parameterized constructor called.\n";;
-	if (target.length() == 0) throw std::invalid_argument("empty name");
+	if (target.length() == 0) throw std::invalid_argument("empty string");
 }
 // Copy Constructor
 PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm& other) :  

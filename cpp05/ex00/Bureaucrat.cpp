@@ -7,7 +7,7 @@ Bureaucrat::Bureaucrat() : _name("NAME"), _grade(150) {
 // Parameterized Constructor
 Bureaucrat::Bureaucrat(const std::string& name, int grade) : _name(name) {
 	std::cout << "Bureaucrat: Parameterized constructor called.\n";;
-	if (name.length() == 0) throw std::invalid_argument("empty name");
+	if (name.length() == 0) throw std::invalid_argument("empty string");
 	if (grade < 1) throw Bureaucrat::GradeTooHighException();
 	if (grade > 150) throw Bureaucrat::GradeTooLowException();
 	_grade = grade;

@@ -11,7 +11,7 @@ ShrubberyCreationForm::ShrubberyCreationForm(const std::string& target) :
 	AForm("ShrubberyCreationForm", 145, 137), 
 	_target(target) {
 	std::cout << "ShrubberyCreationForm: Parameterized constructor called.\n";;
-	if (target.length() == 0) throw std::invalid_argument("empty name");
+	if (target.length() == 0) throw std::invalid_argument("empty string");
 }
 // Copy Constructor
 ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm& other) :  
