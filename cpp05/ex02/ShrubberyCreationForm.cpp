@@ -36,7 +36,7 @@ void ShrubberyCreationForm::_implementEnactment() const {
 	std::string path = _target + "_shrubbery";
 	std::ofstream outfile;
 	outfile.open(path);
-	if (!outfile) { std::cout << "Missing permission of the landowner to plant a shrubbery at " << _target << "\n"; }
+	if (!outfile) throw std::runtime_error("local council has filed a complaint about shrubbery price and the district court has revoked planting permissions until the case is reviewed");
 	else {
 		outfile << "               ,@@@@@@@,\n";
 		outfile << "       ,,,.   ,@@@@@@/@@,  .oo8888o.\n";
