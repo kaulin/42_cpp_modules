@@ -1,21 +1,21 @@
-NAME				:= XXX
-CXX					:= c++
-CXX_FLAGS			:= -Wall -Wextra -Werror -std=c++11
+NAME := program
+CXX := c++
+CXX_FLAGS := -Wall -Wextra -Werror -std=c++17 -g
 
 # Sources
-SOURCES				:= main.cpp XXX.cpp
-VPATH				+= sources/
+SOURCES := main.cpp
+VPATH	+= sources/
 
 # Objects
-OBJECT_DIRECTORY	:= objects/
-OBJECTS				:= ${SOURCES:.cpp=.o}
-OBJECT_PATHS		:= $(addprefix $(OBJECT_DIRECTORY), $(OBJECTS))
+OBJECTS := ${SOURCES:.cpp=.o}
+OBJECT_DIRECTORY := objects/
+OBJECT_PATHS := $(addprefix $(OBJECT_DIRECTORY), $(OBJECTS))
 
 # Includes
-INCLUDE_DIRECTORY	:= includes/
-INCLUDES			:= XXX
-INCLUDE_PATHS		:= $(addprefix $(INCLUDE_DIRECTORY), $(INCLUDES))
-INCLUDE_FLAGS		:= -I includes/
+INCLUDES := ....hpp
+INCLUDE_DIRECTORY := includes/
+INCLUDE_PATHS := $(addprefix $(INCLUDE_DIRECTORY), $(INCLUDES))
+INCLUDE_FLAGS := -I includes/
 
 all: $(NAME)
 
@@ -25,7 +25,7 @@ $(NAME): $(OBJECT_DIRECTORY) $(OBJECT_PATHS) $(INCLUDE_PATHS) Makefile
 	@echo "$(NAME) built with $(CXX) and flags $(CXX_FLAGS)!"
 
 $(OBJECT_DIRECTORY):
-	@mkdir $(OBJECT_DIRECTORY)
+	@mkdir -p $(OBJECT_DIRECTORY)
 
 $(OBJECT_DIRECTORY)%.o: %.cpp $(INCLUDE_PATHS) Makefile 
 	@echo "Compiling $<"
