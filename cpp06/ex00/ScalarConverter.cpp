@@ -21,7 +21,9 @@ bool isInt(const std::string& literal) {
 }
 
 bool isFloat(const std::string& literal) {
-	std::istringstream inputstream(literal);
+	if (literal.back() != 'f' && literal.back() != 'F')
+		return false;
+	std::istringstream inputstream(literal.substr(0, literal.size() -1));
 	float f;
 	inputstream >> f;
 	return inputstream.eof() && !inputstream.fail();
@@ -34,7 +36,23 @@ bool isDouble(const std::string& literal) {
 	return inputstream.eof() && !inputstream.fail();
 }
 
-// Default Constructor
+// void convertChar() {
+
+// }
+
+// void convertInt() {
+
+// }
+
+// void convertFloat() {
+
+// }
+
+// void convertDouble() {
+
+// }
+
+// Default Constructora
 ScalarConverter::ScalarConverter () {}
 // Copy Constructor
 ScalarConverter::ScalarConverter(const ScalarConverter& other) { (void)other; }
@@ -50,7 +68,9 @@ ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other) {
 	Convert
 */
 void ScalarConverter::convert(const std::string& literal) {
-	if (isChar(literal))
+	if (literal.empty())
+		std::cout << "Error: empty literal\n";
+	else if (isChar(literal))
 		std::cout << literal << " is a char\n";
 	else if (isInt(literal))
 		std::cout << literal << " is an int\n";
