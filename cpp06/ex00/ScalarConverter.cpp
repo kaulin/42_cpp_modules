@@ -5,7 +5,7 @@ bool isChar(const std::string& literal) {
 }
 
 bool isInt(const std::string& literal) {
-std::istringstream inputstream(literal);
+	std::istringstream inputstream(literal);
 	int i;
 	inputstream >> i;
 	return inputstream.eof() && !inputstream.fail();
@@ -14,6 +14,8 @@ std::istringstream inputstream(literal);
 bool isFloat(const std::string& literal) {
 	if (literal.back() != 'f' && literal.back() != 'F')
 		return false;
+	if (literal == "-inff" || literal == "+inff")
+		return true;
 	std::istringstream inputstream(literal.substr(0, literal.size() -1));
 	float f;
 	inputstream >> f;
@@ -21,6 +23,8 @@ bool isFloat(const std::string& literal) {
 }
 
 bool isDouble(const std::string& literal) {
+	if (literal == "-inf" || literal == "+inf" || literal == "nan")
+		return true;
 	std::istringstream inputstream(literal);
 	double d;
 	inputstream >> d;
@@ -39,9 +43,6 @@ ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other) {
 	return *this;
 }
 
-/*
-	Convert
-*/
 void ScalarConverter::convert(const std::string& literal) {
 	char cVal;
 	int iVal;
@@ -53,46 +54,59 @@ void ScalarConverter::convert(const std::string& literal) {
 	std::ostringstream dStream;
 	fStream << std::fixed << std::setprecision(1);
 	dStream << std::fixed << std::setprecision(1);
-	if (literal.empty())
-		std::cout << "Error: empty literal\n";
-	else if (isChar(literal)) {
+
+	if (isChar(literal)) {
 		cVal = literal[0];
-		cStream << cVal;
+		cStream << "\'" << cVal << "\'";
 		iStream << static_cast<int>(cVal);
 		fStream << static_cast<float>(cVal);
 		dStream << static_cast<double>(cVal);
 	}
+
 	else if (isInt(literal)) {
 		iVal = std::stoi(literal);
 		iStream << iVal;
-		if (iVal < 0 || iVal > 127) cStream << "impossible";
-		else if (!std::isprint(iVal)) cStream << "Not displayable";
-		else cStream << static_cast<char>(iVal);
-		cStream << static_cast<char>(iVal);
+		if (iVal >= 0 && iVal <= 127) {
+			if (!std::isprint(iVal))
+				cStream << "Not displayable";
+			else 
+				cStream << "\'" << static_cast<char>(iVal) << "\'";
+		}
 		fStream << static_cast<float>(iVal);
 		dStream << static_cast<double>(iVal);
 	}
+
 	else if (isFloat(literal)) {
 		fVal = std::stof(literal);
 		fStream << fVal;
-		cStream << static_cast<char>(fVal);
-		iStream << static_cast<int>(fVal);
+		if (fVal >= 0 && fVal <= 127) {
+			if (!std::isprint(fVal))
+				cStream << "Not displayable";
+			else 
+				cStream << "\'" << static_cast<char>(fVal) << "\'";
+		}
+		if (fVal >= std::numeric_limits<int>::lowest() && fVal <= std::numeric_limits<int>::max())
+			iStream << static_cast<int>(fVal);
 		dStream << static_cast<double>(fVal);
 	}
+
 	else if (isDouble(literal)) {
 		dVal = std::stod(literal);
 		dStream << dVal;
-		cStream << static_cast<char>(dVal);
-		iStream << static_cast<int>(dVal);
-		fStream << static_cast<float>(dVal);
+		if (dVal >= 0 && dVal <= 127) {
+			if (!std::isprint(dVal))
+				cStream << "Not displayable";
+			else 
+				cStream << "\'" << static_cast<char>(dVal) << "\'";
+		}
+		if (dVal >= std::numeric_limits<int>::min() && dVal <= std::numeric_limits<int>::max())
+			iStream << static_cast<int>(dVal);
+		if (literal == "+inf" || literal == "-inf" || literal == "nan" || (dVal >= std::numeric_limits<float>::lowest() && dVal <= std::numeric_limits<float>::max()))
+			fStream << static_cast<float>(dVal);
 	}
-	else {
-		std::cout << "I dont know what you're talking about...\n";
-		return;
-	}
-	std::cout << "char: " << ((cStream.str().size() == 1) ? "\'" + cStream.str() + "\'" : cStream.str()) << "\n";
+
+	std::cout << "char: " << ((cStream.str().empty()) ? "impossible" : cStream.str()) << "\n";
 	std::cout << "int: " << ((iStream.str().empty()) ? "impossible" : iStream.str()) << "\n";
 	std::cout << "float: " << ((fStream.str().empty()) ? "impossible" : fStream.str() + "f") << "\n";
 	std::cout << "double: " << ((dStream.str().empty()) ? "impossible" : dStream.str()) << "\n";
-
 }
