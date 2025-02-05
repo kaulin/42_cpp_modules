@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <iomanip>
 
 template <typename T>
 class Array {
@@ -56,6 +57,6 @@ class Array {
 		// Print function
 		void printItems(void) const {
 			for (uint i = 0; i < _size; i++)
-				std::cout << _array[i] << "\n";
+				std::cout << "[" << std::setw(2) << i << "] " << _array[i] << "\n";
 		}
 };
