@@ -10,7 +10,7 @@ class Array {
 		T* _array;
 	public:
 		// Default Constructor
-		Array () : _size(0), _array(nullptr) {};
+		Array () : _size(0), _array(new T[0]) {};
 
 		// Param Constructor
 		Array(uint n) : _size(n), _array(new T[n]) {};
