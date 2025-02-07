@@ -14,6 +14,6 @@ class Serializer {
 		// Copy Assignment Operator
 		Serializer& operator=(const Serializer& other);
 	public:
-		static uintptr_t serialize(Data* ptr);
-		static Data* deserialize(uintptr_t raw);
+		static unsigned intptr_t serialize(Data* ptr);
+		static Data* deserialize(unsigned intptr_t raw);
 };

@@ -6,18 +6,18 @@
 template <typename T>
 class Array {
 	private:
-		uint _size;
+		unsigned int _size;
 		T* _array;
 	public:
 		// Default Constructor
 		Array () : _size(0), _array(new T[0]) {};
 
 		// Param Constructor
-		Array(uint n) : _size(n), _array(new T[n]) {};
+		Array(unsigned int n) : _size(n), _array(new T[n]) {};
 
 		// Copy Constructor
 		Array(const Array& other) : _size(other._size), _array(new T[_size]) { 
-			for (uint i = 0; i < _size; i++)
+			for (unsigned int i = 0; i < _size; i++)
 				_array[i] = other._array[i]; 
 		};
 
@@ -39,24 +39,24 @@ class Array {
 			delete[] _array;
 			_size = other._size;
 			_array = new T[_size]; 
-			for (uint i = 0; i < _size; i++)
+			for (unsigned int i = 0; i < _size; i++)
 				_array[i] = other._array[i]; 
 			return *this;
 		};
 
 		// Bracket Operator
-		T& operator[](uint i) {
+		T& operator[](unsigned int i) {
 			if (i >= _size)
 				throw Array<T>::OutOfBoundsException();
 			return _array[i];
 		};
 
 		// Size function
-		uint size(void) const {return _size; };
+		unsigned int size(void) const {return _size; };
 
 		// Print function
 		void printItems(void) const {
-			for (uint i = 0; i < _size; i++)
+			for (unsigned int i = 0; i < _size; i++)
 				std::cout << "[" << std::setw(2) << i << "] " << _array[i] << "\n";
 		}
 };

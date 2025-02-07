@@ -6,7 +6,7 @@ int main (int argc, char** argv) {
 		return 1;
 	}
 	Data data;
-	uintptr_t serialized_ptr;
+	unsigned intptr_t serialized_ptr;
 	Data* deserialized_ptr;
 
 	data.name = argv[1];

@@ -9,7 +9,7 @@ void testWithArgs(int argc, char** argv) {
 
 	std::cout << "\nTesting copy constructor with arg array: \n";
 	Array<std::string> argsCopy1(args);
-	for (uint i = 0; i < argsCopy1.size(); i++)
+	for (unsigned int i = 0; i < argsCopy1.size(); i++)
 		if (i % 2) argsCopy1[i] = "CAT";
 	std::cout << "Original \n";
 	args.printItems();
@@ -18,7 +18,7 @@ void testWithArgs(int argc, char** argv) {
 
 	std::cout << "\nTesting copy assignment operator with arg array copy: \n";
 	Array<std::string> argsCopy2 = argsCopy1;
-	for (uint i = 0; i < argsCopy2.size(); i++)
+	for (unsigned int i = 0; i < argsCopy2.size(); i++)
 		if (i % 2 == 0) argsCopy2[i] = "MOUSE";
 	std::cout << "Original \n";
 	args.printItems();
