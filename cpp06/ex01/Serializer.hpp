@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <cstdint>
 #include "Data.hpp"
 
 class Serializer {
@@ -14,6 +15,6 @@ class Serializer {
 		// Copy Assignment Operator
 		Serializer& operator=(const Serializer& other);
 	public:
-		static unsigned intptr_t serialize(Data* ptr);
-		static Data* deserialize(unsigned intptr_t raw);
+		static uintptr_t serialize(Data* ptr);
+		static Data* deserialize(uintptr_t raw);
 };

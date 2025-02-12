@@ -12,10 +12,10 @@ Serializer& Serializer::operator=(const Serializer& other) {
 	return *this;
 }
 
-unsigned intptr_t Serializer::serialize(Data* ptr) {
-	return reinterpret_cast<unsigned intptr_t>(ptr);
+uintptr_t Serializer::serialize(Data* ptr) {
+	return reinterpret_cast<uintptr_t>(ptr);
 }
 
-Data* Serializer::deserialize(unsigned intptr_t raw) {
+Data* Serializer::deserialize(uintptr_t raw) {
 	return reinterpret_cast<Data*>(raw);
 }

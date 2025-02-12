@@ -6,7 +6,7 @@ int main (int argc, char** argv) {
 		return 1;
 	}
 	Data data;
-	unsigned intptr_t serialized_ptr;
+	uintptr_t serialized_ptr;
 	Data* deserialized_ptr;
 
 	data.name = argv[1];
@@ -17,6 +17,6 @@ int main (int argc, char** argv) {
 	std::cout << "Serialized pointer ["<< serialized_ptr << "]\n";
 	deserialized_ptr = Serializer::deserialize(serialized_ptr);
 	std::cout << "Deserialized pointer to data packet ["<< deserialized_ptr << "]\n";
-	std::cout << "	OUTCOME: " << ((&data == deserialized_ptr) ? "OK - pointers match\n" : "KO - pointers don't match\n");
+	std::cout << "OUTCOME: " << ((&data == deserialized_ptr) ? "OK - pointers match\n" : "KO - pointers don't match\n");
 	return 0;
 }
