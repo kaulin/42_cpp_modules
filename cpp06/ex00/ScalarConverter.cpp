@@ -59,8 +59,8 @@ void ScalarConverter::convert(const std::string& literal) {
 		cVal = literal[0];
 		cStream << "\'" << cVal << "\'";
 		iStream << static_cast<int>(cVal);
-		fStream << static_cast<float>(cVal);
-		dStream << static_cast<double>(cVal);
+		fStream << std::fixed << std::setprecision(1) << static_cast<float>(cVal);
+		dStream << std::fixed << std::setprecision(1) << static_cast<double>(cVal);
 	}
 
 	else if (isInt(literal)) {
@@ -85,7 +85,7 @@ void ScalarConverter::convert(const std::string& literal) {
 			else 
 				cStream << "\'" << static_cast<char>(fVal) << "\'";
 		}
-		if (fVal >= std::numeric_limits<int>::lowest() && fVal <= std::numeric_limits<int>::max())
+		if (fVal >= -2147483648.0f && fVal < 2147483647.0f)
 			iStream << static_cast<int>(fVal);
 		dStream << static_cast<double>(fVal);
 	}

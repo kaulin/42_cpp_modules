@@ -60,11 +60,7 @@ void test() {
 int main (int argc, char** argv) {
 	std::string literal;
 
-	if (argc != 2) {
-		std::cerr << "Usage: " << argv[0] << " <literal> (\"test\" for predefined tests)\n";
-		return 1;
-	}
-	if (std::string(argv[1]) == "test")
+	if (argc != 2)
 		test();
 	else
 		ScalarConverter::convert(argv[1]);
