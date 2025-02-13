@@ -1,4 +1,5 @@
 #include "Span.hpp"
+#include <iostream>
 
 int main()
 {
@@ -11,4 +12,6 @@ int main()
 	std::cout << sp.shortestSpan() << std::endl;
 	std::cout << sp.longestSpan() << std::endl;
 	return 0;
-}	
+}
+
+// for range insertion, check that start is before end
