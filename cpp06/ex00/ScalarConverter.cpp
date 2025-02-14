@@ -14,7 +14,7 @@ bool isInt(const std::string& literal) {
 bool isFloat(const std::string& literal) {
 	if (literal.back() != 'f' && literal.back() != 'F')
 		return false;
-	if (literal == "-inff" || literal == "+inff")
+	if (literal == "-inff" || literal == "+inff" || literal == "nanf")
 		return true;
 	std::istringstream inputstream(literal.substr(0, literal.size() -1));
 	float f;
