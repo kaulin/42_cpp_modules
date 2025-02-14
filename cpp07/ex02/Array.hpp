@@ -16,7 +16,7 @@ class Array {
 		Array(unsigned int n) : _size(n), _array(new T[n]) {};
 
 		// Copy Constructor
-		Array(const Array& other) : _size(other._size), _array(new T[_size]) { 
+		Array(const Array& other) : _size(other._size), _array(new T[other._size]) { 
 			for (unsigned int i = 0; i < _size; i++)
 				_array[i] = other._array[i]; 
 		};
@@ -34,7 +34,7 @@ class Array {
 
 		// Copy Assignment Operator
 		Array& operator=(const Array& other) {
-			if (this == other)
+			if (this == &other)
 				return *this;
 			delete[] _array;
 			_size = other._size;
