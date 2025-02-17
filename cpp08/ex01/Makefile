@@ -11,7 +11,7 @@ OBJ			:= ${SRCS:.cpp=.o}
 OBJS		:= $(addprefix $(BUILD_DIR), $(OBJ))
 
 # HEADERS
-HEADERS		:= span.hpp
+HEADERS		:= Span.hpp
 
 all: $(NAME)
 

@@ -1,6 +1,10 @@
 #pragma once
 
 #include <set>
+#include <vector>
+#include <numeric>
+#include <algorithm>
+#include <stdexcept>
 
 class Span {
 	private:
