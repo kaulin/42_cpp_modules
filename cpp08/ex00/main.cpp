@@ -1,4 +1,8 @@
 #include <random>
+#include <vector>
+#include <list>
+#include <set>
+#include <iostream>
 #include "easyfind.hpp"
 
 int rangen(int from, int to) {
@@ -11,7 +15,7 @@ int rangen(int from, int to) {
 template <typename T>
 void search(std::string type, T& source, int target) {
 	bool exists = false;
-	int outcome = 0;
+	typename T::iterator outcome;
 	std::cout << "Searching for [" << target << "] from " << type << " container with following elements:\n";
 	for (typename T::iterator it = source.begin(); it != source.end(); ++it) {
 		std::cout << "[";
@@ -22,52 +26,71 @@ void search(std::string type, T& source, int target) {
 		std::cout << *it << "]";
 	}
 	std::cout << "\n";
-	try {
-		outcome = *(::easyfind(source, target));
-		if (!exists)
-			std::cout << "Error: Target does not exists in container, yet this was found: " << outcome << "\n";
-		else
-			std::cout << "Found target in container: " << outcome << "\n";
-	} catch (std::exception& e) {
-		if (!exists)
-			std::cout << "Target does not exist in container, caught exception:\n" << e.what() << "\n";
-		else
-			std::cout << "Error: Target exists in container, yet caught exception:\n" << e.what() << "\n";
-	}
+	outcome = easyfind(source, target);
+	if (!exists && outcome == source.end())
+		std::cout << "OK: Target does not exist in container.\n";
+	else if (!exists && outcome != source.end())
+		std::cout << "KO: Target does not exists in container, yet this was found: " << *outcome << "\n";
+	else if (exists && outcome == source.end())
+		std::cout << "KO: Target exists in container, but was not found\n";
+	else
+		std::cout << "OK: Target exists in container and was found: " << *outcome << "\n";
 }
 
 int main(void) {
 	{
-		std::cout << "Testing easyfind on int vector\n";
+		std::cout << "Testing easyfind on empty int vector\n";
+		int len = 0;
+		int target = rangen(0, 420000);
 		std::vector<int> intVec;
+		intVec.reserve(len);
+		for (int i = 0; i < len; i++)
+			intVec.emplace_back(i);
+		search("vector", intVec, target);
+		std::cout << "Target not in container:\n";
+		search("vector", intVec, 42);
+	}
+	{
+		std::cout << "Testing easyfind on int vector\n";
 		int len = 20;
 		int target = 17;
+		std::vector<int> intVec;
+		intVec.reserve(len);
 		for (int i = 0; i < len; i++)
-			intVec.push_back(i);
-		::search("vector", intVec, target);
-		std::cout << "Causing an exception:\n";
-		::search("vector", intVec, 42);
+			intVec.emplace_back(i);
+		search("vector", intVec, target);
+		std::cout << "Target not in container:\n";
+		search("vector", intVec, 42);
 	}
 	{
 		std::cout << "\nTesting easyfind on random size int list\n";
-		std::vector<int> randomList;
 		int len = rangen(1, 500);
-		int target = rangen(0, 100);
+		int target = rangen(0, 99);
+		std::list<int> randomList;
 		for (int i = 0; i < len; i++)
-			randomList.push_back(rangen(0, 100));
-		::search("vector", randomList, target);
+			randomList.emplace_back(rangen(0, 99));
+		search("vector", randomList, target);
 	}
 	{
-		std::cout << "\nTesting easyfind on double vector\n";
-		std::vector<double> doubleVec;
-		int len = 20;
-		int target = 17;
+		std::cout << "\nTesting easyfind on random size int multiset\n";
+		int len = rangen(1, 5000);
+		int target = rangen(0, 99);
+		std::multiset<int> randomSet;
 		for (int i = 0; i < len; i++)
-			doubleVec.push_back(0.1 + i);
-		::search("vector", doubleVec, target);
-		for (int i = 0; i < len; i++)
-			doubleVec.push_back(0.0 + i);
-		::search("vector", doubleVec, target);
+			randomSet.insert(rangen(0, 99));
+		search("multiset", randomSet, target);
 	}
+	// {
+	// 	std::cout << "\nTesting easyfind on double vector\n";
+	// 	std::vector<double> doubleVec;
+	// 	int len = 20;
+	// 	int target = 17;
+	// 	for (int i = 0; i < len; i++)
+	// 		doubleVec.push_back(0.1 + i);
+	// 	search("vector", doubleVec, target);
+	// 	for (int i = 0; i < len; i++)
+	// 		doubleVec.push_back(0.0 + i);
+	// 	search("vector", doubleVec, target);
+	// }
 	return 0;
 }
