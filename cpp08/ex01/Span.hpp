@@ -5,6 +5,7 @@
 #include <numeric>
 #include <algorithm>
 #include <stdexcept>
+#include <iostream>
 
 class Span {
 	private:
@@ -19,5 +20,6 @@ class Span {
 		void addNumber(int num);
 		int shortestSpan() const;
 		int longestSpan() const;
-		//void import(std::iterator& start, std::iterator& end); TODO
+		void addNumbers(std::vector<int>::const_iterator first, std::vector<int>::const_iterator last);
+		void printSpan() const;
 };
