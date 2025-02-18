@@ -9,7 +9,7 @@ class MutantStack : public std::stack<T> {
 		using iterator = typename C::iterator;
 		using const_iterator = typename C::const_iterator;
 		using reverse_iterator = typename C::reverse_iterator;
-		using const_reverse_iterator = typename C::reverse_iterator;
+		using const_reverse_iterator = typename C::const_reverse_iterator;
 
 		MutantStack() = default;
 		MutantStack(const MutantStack& other) = default;
