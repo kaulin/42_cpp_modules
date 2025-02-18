@@ -24,10 +24,13 @@ void Span::addNumber(int n) {
 
 void Span::addNumbers(std::vector<int>::const_iterator first, std::vector<int>::const_iterator last) {
 	if (first >= last)
-		throw std::runtime_error("problematic iterators");
+		throw std::runtime_error("range insertion failure, begin iterator >= end iterator");
+	std::cout << "Adding " << last - first << " integers to span with capacity " << _ints.size() << "/" << _max << "\n";
+	for (int i = 0; first + i != last; i++)
+		addNumber(*(first + i));
 }
 
-int Span::shortestSpan() const {
+long Span::shortestSpan() const {
 	if (_ints.size() < 2)
 		throw std::runtime_error("span impossible");
 	std::vector<int> spans(_ints.size() -1 );
@@ -35,16 +38,22 @@ int Span::shortestSpan() const {
 	return *std::min_element(spans.begin() + 1, spans.end());
 }
 
-int Span::longestSpan() const {
+long Span::longestSpan() const {
 	if (_ints.size() < 2)
 		throw std::runtime_error("span impossible");
-	return std::abs(*_ints.begin() - *_ints.rbegin());
+	long begin = *_ints.begin();
+	long end = *_ints.rbegin();
+	return std::abs(end - begin);
 }
 
 void Span::printSpan() const {
-	std::cout << "Span of size " << _max << " contains " << _ints.size() << " elements:\n";
-	for (std::multiset<int>::iterator it = _ints.begin(); it != _ints.end(); it++)
-		std::cout << *it << (std::next(it) != _ints.end() ? " " : "\n");
+	std::cout << "Span capacity: " << _ints.size() << "/" << _max << "\n";
+	if (_ints.size() < 100) {
+		for (std::multiset<int>::iterator it = _ints.begin(); it != _ints.end(); it++)
+			std::cout << *it << (std::next(it) != _ints.end() ? " " : "\n");
+	}
+	else
+		std::cout << "Min = " << *_ints.begin() << ", max = " << *_ints.rbegin() << "\n";
 	try {
 		std::cout << "Shortest span: " << shortestSpan() << "\n";
 	} catch(std::runtime_error e) {

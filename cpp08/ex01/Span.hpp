@@ -18,8 +18,8 @@ class Span {
 		Span(const Span& other);
 		Span operator=(const Span& other);
 		void addNumber(int num);
-		int shortestSpan() const;
-		int longestSpan() const;
+		long shortestSpan() const;
+		long longestSpan() const;
 		void addNumbers(std::vector<int>::const_iterator first, std::vector<int>::const_iterator last);
 		void printSpan() const;
 };
