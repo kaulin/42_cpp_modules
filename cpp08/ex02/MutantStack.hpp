@@ -2,14 +2,14 @@
 
 #include <stack>
 
-template <typename T, typename C = std::deque<T>>
+template <typename T, typename Container = std::deque<T>>
 class MutantStack : public std::stack<T> {
 	private:
 	public:
-		using iterator = typename C::iterator;
-		using const_iterator = typename C::const_iterator;
-		using reverse_iterator = typename C::reverse_iterator;
-		using const_reverse_iterator = typename C::const_reverse_iterator;
+		using iterator = typename Container::iterator;
+		using const_iterator = typename Container::const_iterator;
+		using reverse_iterator = typename Container::reverse_iterator;
+		using const_reverse_iterator = typename Container::const_reverse_iterator;
 
 		MutantStack() = default;
 		MutantStack(const MutantStack& other) = default;
