@@ -33,7 +33,7 @@ void Span::addNumbers(std::vector<int>::const_iterator first, std::vector<int>::
 long Span::shortestSpan() const {
 	if (_ints.size() < 2)
 		throw std::runtime_error("span impossible");
-	std::vector<int> spans(_ints.size() -1 );
+	std::vector<int> spans(_ints.size());
 	std::adjacent_difference(_ints.begin(), _ints.end(), spans.begin());
 	return *std::min_element(spans.begin() + 1, spans.end());
 }
