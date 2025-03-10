@@ -1,25 +1,24 @@
 #pragma once
 
+#include <map>
+#include <ctime>
 #include <iostream>
+#include <fstream>
+#include <limits>
+
+#define DATABASE "./data.csv"
 
 class BitcoinExchange {
 private:
-	std::string	_name;
+	std::map<time_t, float> _data;
 public:
-	// Default Constructor
 	BitcoinExchange();
-	// Parameterized Constructor
-	BitcoinExchange(const std::string& name);
-	// Copy Constructor
 	BitcoinExchange(const BitcoinExchange& other);
-	// Destructor
 	~BitcoinExchange();
-	// Copy Assignment Operator
 	BitcoinExchange& operator=(const BitcoinExchange& other);
 
-	// Getters
-	const std::string&	getName() const;
-	// Setters
-	void		setName(std::string _name);
-	// Other
+	void calculateTotals(const std::string& inputFilePath) const;
+	void addData(const std::string& dataString);
+	
+	class BitcoinExchangeException : public std::exception {};
 };

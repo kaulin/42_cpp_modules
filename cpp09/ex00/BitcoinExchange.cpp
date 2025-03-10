@@ -1,30 +1,50 @@
 #include "BitcoinExchange.hpp"
 
-// Default Constructor
 BitcoinExchange::BitcoinExchange () {
-	std::cout << "BitcoinExchange: Default constructor called.\n";
+	std::ifstream database (DATABASE);
+	std::string year;
+	std::string month;
+	std::string day;
+	std::string value;
+	database.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	while (getline(database, year, '-') && getline(database, month, '-') && getline(database, day, ',') && getline(database, value)) {
+		time_t date;
+		std::tm tm = {};
+		tm.tm_year = std::stoi(year);
+		tm.tm_mon = std::stoi(month);
+		tm.tm_mday = std::stoi(day);
+		date = std::mktime(&tm);
+		_data[date] = std::stof(value);
+		std::cout << "Inserted KEY " << date << " VALUE " << value << "\n";
+	}
+	database.close();
 }
-// Parameterized Constructor
-BitcoinExchange::BitcoinExchange (const std::string& name) : _name(name) {
-	std::cout << "BitcoinExchange: Parameterized constructor called.\n"
+
+BitcoinExchange::BitcoinExchange(const BitcoinExchange& other) {
+	_data = other._data;
 }
-// Copy Constructor
-BitcoinExchange::BitcoinExchange(const BitcoinExchange& other) : _name(other._name) {
-	std::cout << "BitcoinExchange: Copy constructor called.\n";
-}
-// Destructor
+
 BitcoinExchange::~BitcoinExchange() {
-	std::cout << "BitcoinExchange: Destructor called.\n";
 }
-// Copy Assignment Operator
+
 BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other) {
-	std::cout << "BitcoinExchange: Copy assignment operator called.\n";
 	if (this == &other) return *this;
-	_name = other._name;
+	_data = other._data;
 	return *this;
 }
-// Getters
-const std::string&	BitcoinExchange::getName() const { return _name;}
-// Setters
-void	BitcoinExchange::setName(std::string name) { _name = name; }
-// Other
+
+void BitcoinExchange::calculateTotals(const std::string& inputFilePath) const {
+	std::ifstream inputFile(inputFilePath);
+	std::string line;
+	while (getline(inputFile, line)) {
+		try {
+			validate(line);
+			calculate(line);
+			// _data.lower_bound(target)!!!!
+		}
+	}
+}
+
+void BitcoinExchange::addData(const std::string& dataString) {
+	(void)dataString;
+}
