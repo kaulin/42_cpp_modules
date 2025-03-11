@@ -3,8 +3,11 @@
 #include <map>
 #include <ctime>
 #include <iostream>
+#include <sstream>
+#include <string>
 #include <fstream>
 #include <limits>
+#include <exception>
 
 #define DATABASE "./data.csv"
 
@@ -17,8 +20,12 @@ public:
 	~BitcoinExchange();
 	BitcoinExchange& operator=(const BitcoinExchange& other);
 
+	std::string parseLine(const std::string& line, char delim, time_t& date, float& value) const;
+	time_t parseDate(const std::string& dateString) const;
+	float getTotalValue(time_t date, float count) const;
+
+	void initDatabase(const std::string& databaseFilePath);
 	void calculateTotals(const std::string& inputFilePath) const;
-	void addData(const std::string& dataString);
 	
 	class BitcoinExchangeException : public std::exception {};
 };
