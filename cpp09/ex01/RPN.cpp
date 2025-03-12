@@ -40,7 +40,7 @@ void RPN::handleOperation(char op) {
 	if (result > std::numeric_limits<int>::max() || result < std::numeric_limits<int>::min())
 		throw std::runtime_error("Operation overflowed");
 	else
-		_numbers.push(result);
+		_numbers.push(static_cast<int>(result));
 }
 
 void RPN::processToken(const std::string& token) {
