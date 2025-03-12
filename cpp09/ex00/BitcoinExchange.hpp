@@ -8,6 +8,7 @@
 #include <fstream>
 #include <limits>
 #include <exception>
+#include <regex>
 
 #define DATABASE "./data.csv"
 

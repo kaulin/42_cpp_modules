@@ -9,7 +9,8 @@ int main(int argc, char** argv) {
 	try {
 		bcx.initDatabase(DATABASE);
 	} catch (std::exception& e) {
-		std::cout << e.what() << "\n";
+		std::cout << "Database " << e.what() << "\nTerminating!\n";
+		return 1;
 	}
 	try {
 		bcx.calculateTotals(argv[1]);
