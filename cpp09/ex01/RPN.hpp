@@ -1,25 +1,21 @@
 #pragma once
 
 #include <iostream>
+#include <stack>
+#include <sstream>
+#include <regex>
+#include <limits>
 
 class RPN {
 private:
-	std::string	_name;
-public:
-	// Default Constructor
-	RPN();
-	// Parameterized Constructor
-	RPN(const std::string& name);
-	// Copy Constructor
+	std::stack<int> _numbers;
 	RPN(const RPN& other);
-	// Destructor
-	~RPN();
-	// Copy Assignment Operator
 	RPN& operator=(const RPN& other);
-
-	// Getters
-	const std::string&	getName() const;
-	// Setters
-	void		setName(std::string _name);
-	// Other
+public:
+	RPN();
+	~RPN();
+	void printNumbers() const;
+	void handleOperation(char op);
+	void processToken(const std::string& token);
+	int process(const std::string& expression);
 };

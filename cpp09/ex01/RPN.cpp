@@ -1,30 +1,76 @@
 #include "RPN.hpp"
 
-// Default Constructor
-RPN::RPN () {
-	std::cout << "RPN: Default constructor called.\n";
-}
-// Parameterized Constructor
-RPN::RPN (const std::string& name) : _name(name) {
-	std::cout << "RPN: Parameterized constructor called.\n"
-}
-// Copy Constructor
-RPN::RPN(const RPN& other) : _name(other._name) {
-	std::cout << "RPN: Copy constructor called.\n";
-}
-// Destructor
-RPN::~RPN() {
-	std::cout << "RPN: Destructor called.\n";
-}
-// Copy Assignment Operator
+RPN::RPN () {}
+RPN::RPN(const RPN& other) : _numbers(other._numbers) {}
+RPN::~RPN() {}
 RPN& RPN::operator=(const RPN& other) {
-	std::cout << "RPN: Copy assignment operator called.\n";
 	if (this == &other) return *this;
-	_name = other._name;
+	_numbers = other._numbers;
 	return *this;
 }
-// Getters
-const std::string&	RPN::getName() const { return _name;}
-// Setters
-void	RPN::setName(std::string name) { _name = name; }
-// Other
+
+void RPN::handleOperation(char op) {
+	if (_numbers.size() < 2)
+		throw std::runtime_error("Not enough numbers in stack");
+	long top = _numbers.top();
+	_numbers.pop();
+	long second = _numbers.top();
+	_numbers.pop();
+	long result;
+	switch (op)
+	{
+	case '*':
+		result = second * top;
+		break;
+	case '+':
+		result = second + top;
+		break;
+	case '-':
+	result = second - top;
+		break;
+	case '/':
+	result = second / top;
+		break;
+	default:
+		throw std::runtime_error("Unknown token");
+		break;
+	}
+	if (result > std::numeric_limits<int>::max() || result < std::numeric_limits<int>::min())
+		throw std::runtime_error("Operation overflowed");
+	else
+		_numbers.push(result);
+}
+
+void RPN::processToken(const std::string& token) {
+	if (token.size() > 1)
+		throw std::runtime_error("Token too large: " + token);
+	if (std::isdigit(token[0]))
+		_numbers.push(std::stoi(token));
+	else
+		handleOperation(token[0]);
+}
+
+int RPN::process(const std::string& expression) {
+	if (expression.empty())
+		throw std::runtime_error("Incomplete expression");
+	std::istringstream input(expression);
+	std::string token;
+	while (!input.eof()) {
+		input >> token;
+		processToken(token);
+	}
+	if (_numbers.size() != 1)
+		throw std::runtime_error("Incomplete expression");
+	int result = _numbers.top();
+	_numbers.pop();
+	return result;
+}
+
+void RPN::printNumbers() const {
+	std::stack<int> copy(_numbers);
+	while(!copy.empty()) {
+		std::cout << copy.top();
+		copy.pop();
+	}
+	std::cout << "\n";
+}
