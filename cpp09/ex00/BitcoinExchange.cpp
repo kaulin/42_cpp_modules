@@ -17,7 +17,7 @@ static bool valiDate(int year, int month, int day) {
 	return true;
 }
 
-static bool checkPattern(std::string input, std::regex pattern) {
+static bool patternMatches(std::string input, std::regex pattern) {
 	return std::regex_match(input, pattern);
 }
 
@@ -26,7 +26,7 @@ static bool fileReadable(const std::string& filePath) {
 	return file.good();
 }
 
-std::string trim(const std::string& string) {
+static std::string trim(const std::string& string) {
 	std::string whitespace = " \n\t\r";
 	size_t start = string.find_first_not_of(whitespace);
 	if (start == std::string::npos)
@@ -111,7 +111,7 @@ void BitcoinExchange::initDatabase(const std::string& databaseFilePath) {
 	time_t date;
 	float value;
 	while (getline(database, line)) {
-		if (!checkPattern(line, std::regex(R"(^(\d{4})-(\d{2})-(\d{2}),-?(\d+(\.\d+)?)$)")))
+		if (!patternMatches(line, std::regex(R"(^(\d{4})-(\d{2})-(\d{2}),-?(\d+(\.\d+)?)$)")))
 			throw std::runtime_error("Error: bad input => " + line);
 		parseLine(line, ',', date, value);
 		_data[date] = value;
@@ -129,7 +129,7 @@ void BitcoinExchange::calculateTotals(const std::string& inputFilePath) const {
 	float total;
 	while (getline(inputFile, line)) {
 		try {
-			if (!checkPattern(line, std::regex(R"(^(\d{4})-(\d{2})-(\d{2}) \| -?(\d+(\.\d+)?)$)")))
+			if (!patternMatches(line, std::regex(R"(^(\d{4})-(\d{2})-(\d{2}) \| -?(\d+(\.\d+)?)$)")))
 				throw std::runtime_error("Error: bad input => " + line);
 			line = parseLine(line, '|', date, count);
 			if (count < 0)
