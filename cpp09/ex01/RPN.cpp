@@ -26,13 +26,15 @@ void RPN::handleOperation(char op) {
 		result = second + top;
 		break;
 	case '-':
-	result = second - top;
+		result = second - top;
 		break;
 	case '/':
-	result = second / top;
+		if (top == 0)
+			throw std::runtime_error("Division by zero");
+		result = second / top;
 		break;
 	default:
-		throw std::runtime_error("Unknown token");
+		throw std::runtime_error("Unknown operator");
 		break;
 	}
 	if (result > std::numeric_limits<int>::max() || result < std::numeric_limits<int>::min())
@@ -43,7 +45,7 @@ void RPN::handleOperation(char op) {
 
 void RPN::processToken(const std::string& token) {
 	if (token.size() > 1)
-		throw std::runtime_error("Token too large: " + token);
+		throw std::runtime_error("Multicharacter token");
 	if (std::isdigit(token[0]))
 		_numbers.push(std::stoi(token));
 	else
@@ -60,7 +62,7 @@ int RPN::process(const std::string& expression) {
 		processToken(token);
 	}
 	if (_numbers.size() != 1)
-		throw std::runtime_error("Incomplete expression");
+		throw std::runtime_error("Invalid expression");
 	int result = _numbers.top();
 	_numbers.pop();
 	return result;
