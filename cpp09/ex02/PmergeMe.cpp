@@ -9,7 +9,15 @@ PmergeMe& PmergeMe::operator=(const PmergeMe& other) {
 	return *this;
 }
 
-bool PmergeMe::gT(const int a, const int b) {
+void PmergeMe::sortVector(std::vector<int>& vec) {
+	recursiveMergeInsertionSort<std::vector<int>>(vec, 1);
+}
+
+void PmergeMe::sortDeque(std::deque<int>& deq) {
+	recursiveMergeInsertionSort<std::deque<int>>(deq, 1);
+}
+
+bool PmergeMe::greater(const int a, const int b) {
 	_comparisonCount++;
 	return (a > b);
 }
@@ -17,6 +25,11 @@ bool PmergeMe::gT(const int a, const int b) {
 int PmergeMe::getComparisonCount() const {
 	return _comparisonCount;
 }
+
+int PmergeMe::isOdd(int n) {
+	return n & 1;
+}
+
 
 // https://dev.to/emuminov/human-explanation-and-step-by-step-visualisation-of-the-ford-johnson-algorithm-5g91
 // https://medium.com/@toukmati2000/cpp09-ford-johnson-algorithm-e6ad43288d4b
