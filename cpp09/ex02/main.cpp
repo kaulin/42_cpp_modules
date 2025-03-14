@@ -70,7 +70,10 @@ static bool compareContainers(TcontainerA a, TcontainerB b) {
 	IteratorA itA = a.begin();
 	IteratorB itB = b.begin();
 	while (itA != a.end() && itB != b.end()) {
-		if (*itA++ != *itB++) return false;
+		if (*itA != *itB)
+			return false;
+		std::advance(itA, 1);
+		std::advance(itB, 1);
 	}
 	return true;
 }
