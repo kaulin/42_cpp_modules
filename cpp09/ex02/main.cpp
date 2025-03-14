@@ -1,24 +1,24 @@
+#include <iostream>
+#include <sstream>
+#include <vector>
+#include <deque>
+#include <set>
+#include <algorithm>
 #include "PmergeMe.hpp"
 
 static void isIntString(const std::string& string) {
 	try {
 		if (string.empty() || string.find_first_not_of("0123456789") != std::string::npos)
-			throw std::invalid_argument(string);
+			throw std::invalid_argument("invalid argument: " + string);
 		std::stoi(string);
 	} catch (const std::out_of_range& e) {
-		throw std::invalid_argument(string);
+		throw std::invalid_argument("invalid argument: " + string);
 	}
 }
 
-static bool validateArgs(int argc, char **argv) {
-	try {
-		for (int i = 1; i < argc; i++)
-			isIntString(argv[i]);
-		return true;
-	} catch (const std::invalid_argument& e) {
-		std::cout << "Error: Ivalid argument: " << e.what() << "\n";
-		return false;
-	}
+static void validateArgs(int argc, char **argv) {
+	for (int i = 1; i < argc; i++)
+		isIntString(argv[i]);
 }
 
 static void printBefore(int argc, char** argv) {
@@ -52,35 +52,71 @@ static std::deque<int> argsToDeque(int argc, char** argv) {
 	return deq;
 }
 
+static std::set<int> argsToSet(int argc, char** argv) {
+	std::set<int> set;
+	for (int i = 1; i < argc; i++) {
+		if (set.insert(std::atoi(argv[i])).second == false)
+			throw std::invalid_argument("duplicate integer: " + std::string(argv[i]));
+	}
+	return set;
+}
+
+template <typename TcontainerA, typename TcontainerB>
+static bool compareContainers(TcontainerA a, TcontainerB b) {
+	if (a.size() != b.size())
+		return false;
+	typedef typename TcontainerA::iterator IteratorA;
+	typedef typename TcontainerB::iterator IteratorB;
+	IteratorA itA = a.begin();
+	IteratorB itB = b.begin();
+	while (itA != a.end() && itB != b.end()) {
+		if (*itA++ != *itB++) return false;
+	}
+	return true;
+}
+
 int main(int argc, char** argv) {
 	if (argc < 3) {
 		std::cout << "Usage: " << argv[0] << " positive_integer1 positive_integer2 [positive_integer3] ... [positive_integerN]\n";
 		return 1;
 	}
-	if(!validateArgs(argc, argv))
-		return 1;
-	printBefore(argc, argv);
+	std::set<int> results;
+	try {
+		validateArgs(argc, argv);
+		results = argsToSet(argc, argv);
+	} catch (const std::invalid_argument& e) {
+		std::cerr << "Error: " << e.what() << "\n";
+		return -1;
+	}
 
-	// Vector implementation
-	//start clock
+	// Vector test
+	clock_t vecStart = clock();
 	PmergeMe sorterVec;
 	std::vector<int> vec = argsToVector(argc, argv);
 	sorterVec.sortVector(vec);
-	// stop clock
+	time_t vecStop = clock();
+	if (!compareContainers(results, vec))
+		std::cout << "Vector sort incorrect!\n";
+	double vecDuration = static_cast<double>(vecStop - vecStart) / CLOCKS_PER_SEC;
 	
-	// Deque implementation
-	//start clock
+	// Deque test
+	clock_t deqStart = clock();
 	PmergeMe sorterDeq;
 	std::deque<int> deq = argsToDeque(argc, argv);
 	sorterDeq.sortDeque(deq);
-	// stop clock
+	time_t deqStop = clock();
+	if (!compareContainers(results, deq))
+		std::cout << "Deq sort incorrect!\n";
+	double deqDuration = static_cast<double>(deqStop - deqStart) / CLOCKS_PER_SEC;
 
 	// validate results
 
+	printBefore(argc, argv);
 	printAfter(vec);
-
-	// print vectime
-	// print deqtime
+	// std::cout << "Time to process a range of " << argc -1 << " elements with std::vector : " << vecDuration * 1000 << " us\n";
+	// std::cout << "Time to process a range of " << argc -1 << " elements with std::deque : " << deqDuration * 1000 << " us\n";
+	std::cout << "Vector - elements: " << argc -1 << ", comparisons: " << sorterVec.getComparisonCount() << ", time: " << vecDuration * 1000 << "\n";
+	std::cout << "Deque - elements: " << argc -1 << ", comparisons: " << sorterDeq.getComparisonCount() << ", time: " << deqDuration * 1000 << "\n";
 	
 	return 0;
 }
