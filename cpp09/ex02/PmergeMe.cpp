@@ -1,6 +1,6 @@
 #include "PmergeMe.hpp"
 
-PmergeMe::PmergeMe () {}
+PmergeMe::PmergeMe () : _comparisonCount(0) {}
 PmergeMe::PmergeMe(const PmergeMe& other) : _comparisonCount(other._comparisonCount) {}
 PmergeMe::~PmergeMe() {}
 PmergeMe& PmergeMe::operator=(const PmergeMe& other) {
