@@ -118,8 +118,8 @@ int main(int argc, char** argv) {
 	printAfter(vec);
 	// std::cout << "Time to process a range of " << argc -1 << " elements with std::vector : " << vecDuration * 1000 << " us\n";
 	// std::cout << "Time to process a range of " << argc -1 << " elements with std::deque : " << deqDuration * 1000 << " us\n";
-	std::cout << "Vector - elements: " << argc -1 << ", comparisons: " << sorterVec.getComparisonCount() << ", time: " << vecDuration * 1000 << "\n";
-	std::cout << "Deque - elements: " << argc -1 << ", comparisons: " << sorterDeq.getComparisonCount() << ", time: " << deqDuration * 1000 << "\n";
+	std::cout << "Vector - elements: " << argc -1 << ", comparisons: " << sorterVec.getComparisonCount() << ", time: " << vecDuration * 1000 << " us\n";
+	std::cout << "Deque - elements: " << argc -1 << ", comparisons: " << sorterDeq.getComparisonCount() << ", time: " << deqDuration * 1000 << " us\n";
 	
 	return 0;
 }
