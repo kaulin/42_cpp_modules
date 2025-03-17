@@ -30,26 +30,31 @@ private:
 	int _comparisonCount;
 	PmergeMe(const PmergeMe& other);
 	PmergeMe& operator=(const PmergeMe& other);
-	bool greater(const int a, const int b);
 	static int isOdd(int n);
-	
+
 	template <typename TIterator>
-	void addElementToVector(TIterator it, int elementSize, std::vector<int>& vec) {
-		for (int i = 0; i < elementSize; i++)
-			vec.emplace_back(*(it + i));
+	bool isGreater(const TIterator a, const TIterator b, int elementSize) {
+		_comparisonCount++;
+		return *(a + elementSize - 1) > *(b + elementSize - 1);
 	}
 	
 	template <typename TIterator>
-	void swapElements(TIterator itA, TIterator itB, int elementSize) {
+	void swapElements(TIterator it, int elementSize) {
 		for (int i = 0; i < elementSize; i++) {
-			int temp = *(itA - i);
-			*(itA - i) = *(itB - i);
-			*(itB - i) = temp;
+			int temp = *(it + i);
+			*(it + i) = *(it + elementSize + i);
+			*(it + elementSize + i) = temp;
 		}
 	};
+
+	// template <typename TIterator, typename TContainer>
+	// TIterator findPlace(int elementValue, int elementSize, TIterator lowerBound, TIterator upperBound) {
+
+	// }
 	
 	template <typename TContainer>
 	void recursiveMergeInsertionSort(TContainer& cont, int depth) {
+		typedef typename TContainer::iterator Iter;
 
 		// Set up variables for depth
 		int elementSize = std::pow(2, depth - 1);
@@ -58,44 +63,53 @@ private:
 		// int leftovers = cont.size() - elements * elementSize;
 
 		// Compare and swap pairs if necessary.
-		typename TContainer::iterator it = cont.begin() + elementSize - 1;
-		while (it + elementSize < cont.end()) {
-			if (greater(*it, *(it + elementSize)))
-				swapElements(it, it + elementSize, elementSize);
+		Iter it = cont.begin();
+		while (it + pairSize -1 < cont.end()) {
+			if (isGreater(it, it + elementSize, elementSize))
+				swapElements(it, elementSize);
 			std::advance(it, pairSize);
 		}
 
 		printContainer(cont, depth, elementSize);
 		// Head deeper if pairs exist on the next depth.
-		if (elements > 3)
-			recursiveMergeInsertionSort(cont, pairSize);
+		if (elements >= 4)
+			recursiveMergeInsertionSort(cont, depth + 1);
 		// Nothing further to do for less than 3 elements.
 		if (elements < 3)
 			return;
 		
-		// Set up main and pend chains
-		std::vector<int> main, pend;
-		main.reserve(cont.size());
+		// Set up main and pend chains and helper variables
+		TContainer main, pend;
+		int elementsToInsert = 0;
+		int elementsInserted = 0;
 		it = cont.begin();
 		for (int i = 0; i * elementSize < elements; i++) {
-			// main chain = b1, a1, a2 ... an
+			// main chain = b1, a1, ..., an
 			if (i == 0 || isOdd(i))
-				addElementToVector(it, elementSize, main);
-			// pend chain = b2 ... bn
-			else
-				addElementToVector(it, elementSize, pend);
+				main.insert(main.end(), it, it + elementSize);
+			// pend chain = b2, ..., bn
+			else {
+				pend.insert(pend.end(), it, it + elementSize);
+				elementsToInsert++;
+			}
 			std::advance(it, elementSize);
 		}
 
-		// select pend element to insert into main using Jabobstahl
-		// insert pend element to main, remove from pend
-		// repeat till pend empty
+//		Iter dest, lowerBound, upperBound;
+		while (elementsToInsert) {
+			// Select pend element to insert into main using Jabobstahl
+			it = pend.begin();
+			elementsInserted++;
+			elementsToInsert--;
+			// Insert pend element to main, remove from pend
+			
+		}
 
-		// add leftover elements to the end of main
+		// Add leftover elements to the end of main
 		while (it != cont.end())
 			main.emplace_back(*(it++));
 		
-		// copy sorted elements from main back to container
+		// Copy elements from main back to container
 		TContainer copy(cont);
 		it = cont.begin();
 		for (int n : main)

@@ -17,11 +17,6 @@ void PmergeMe::sortDeque(std::deque<int>& deq) {
 	recursiveMergeInsertionSort<std::deque<int>>(deq, 1);
 }
 
-bool PmergeMe::greater(const int a, const int b) {
-	_comparisonCount++;
-	return (a > b);
-}
-
 int PmergeMe::getComparisonCount() const {
 	return _comparisonCount;
 }
