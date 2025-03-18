@@ -21,6 +21,24 @@ int PmergeMe::getComparisonCount() const {
 	return _comparisonCount;
 }
 
+int PmergeMe::jacobshal(int n) {
+	if (n < 0)
+		throw std::out_of_range("Jacobsthal got a negative number :(\n");
+	else if (n == 0)
+		return 0;
+	else if (n == 1)
+		return 1;
+	int temp;
+	int prev = 0;
+	int result = 1;
+	for (int i = 1; i < n; i++) {
+		temp = result;
+		result = prev * 2 + result;
+		prev = temp;
+	}
+	return result;
+}
+
 int PmergeMe::isOdd(int n) {
 	return n & 1;
 }
