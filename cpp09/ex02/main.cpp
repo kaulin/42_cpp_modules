@@ -6,6 +6,16 @@
 #include <algorithm>
 #include "PmergeMe.hpp"
 
+// Returns the max number of comparisons for n elements, courtesy of https://github.com/emuminov
+static int worstCase(int n) {
+	int result = 0;
+	for (int i = 1; i <= n; ++i) {
+		double value = (3.0 / 4.0) * i;
+		result += static_cast<int>(ceil(log2(value)));
+	}
+	return result;
+}
+
 static void isIntString(const std::string& string) {
 	try {
 		if (string.empty() || string.find_first_not_of("0123456789") != std::string::npos)
@@ -118,8 +128,8 @@ int main(int argc, char** argv) {
 	printAfter(vec);
 	// std::cout << "Time to process a range of " << argc -1 << " elements with std::vector : " << vecDuration * 1000 << " us\n";
 	// std::cout << "Time to process a range of " << argc -1 << " elements with std::deque : " << deqDuration * 1000 << " us\n";
-	std::cout << "Vector - elements: " << argc -1 << ", comparisons: " << sorterVec.getComparisonCount() << ", time: " << vecDuration * 1000 << " us\n";
-	std::cout << "Deque - elements: " << argc -1 << ", comparisons: " << sorterDeq.getComparisonCount() << ", time: " << deqDuration * 1000 << " us\n";
+	std::cout << "Vector - elements: " << argc -1 << ", comparisons: " << sorterVec.getComparisonCount() << "/" << worstCase(argc) << ", time: " << vecDuration * 1000 << " us\n";
+	std::cout << "Deque - elements: " << argc -1 << ", comparisons: " << sorterDeq.getComparisonCount() << "/" << worstCase(argc) << ", time: " << deqDuration * 1000 << " us\n";
 	
 	return 0;
 }
