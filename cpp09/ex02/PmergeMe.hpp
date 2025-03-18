@@ -9,12 +9,15 @@
 
 template <typename TContainer>
 static void printContainer(TContainer cont, int depth, int elementSize) {
-	std::cout << "Recursion depth " << depth << ", elementSize " << elementSize << ":\n";
+	std::cout << "recursion depth " << depth << ", elementSize " << elementSize << ":\n";
+	// for (size_t i = 0; i < cont.size(); i++) {
+	// 	if (i % (elementSize * 2) == 0) std::cout << "[";
+	// 	std::cout << cont.at(i);
+	// 	if ((i + 1) % (elementSize * 2) == 0) std::cout << "]";
+	// 	else std::cout << "  ";
+	// }
 	for (size_t i = 0; i < cont.size(); i++) {
-		if (i % (elementSize * 2) == 0) std::cout << "[";
-		std::cout << cont.at(i);
-		if ((i + 1) % (elementSize * 2) == 0) std::cout << "]";
-		else std::cout << "  ";
+		std::cout << cont.at(i) << " ";
 	}
 	std::cout << "\n";
 }
@@ -30,6 +33,7 @@ private:
 	int _comparisonCount;
 	PmergeMe(const PmergeMe& other);
 	PmergeMe& operator=(const PmergeMe& other);
+	static int jacobsthal(int n);
 	static int isOdd(int n);
 
 	template <typename TIterator>
@@ -47,10 +51,18 @@ private:
 		}
 	};
 
-	// template <typename TIterator, typename TContainer>
-	// TIterator findPlace(int elementValue, int elementSize, TIterator lowerBound, TIterator upperBound) {
-
-	// }
+	template <typename TIterator>
+	TIterator upperBound(TIterator insert, int elementSize, TIterator lowerBound, TIterator upperBound) {
+		TIterator middle;
+		while (lowerBound < upperBound) {
+			middle = lowerBound + std::abs(std::distance(lowerBound, upperBound)) / 2;
+			if (isGreater(insert, middle, elementSize))
+				lowerBound = middle + 1;
+			else
+				upperBound = middle;
+		}
+		return lowerBound;
+	}
 	
 	template <typename TContainer>
 	void recursiveMergeInsertionSort(TContainer& cont, int depth) {
@@ -70,7 +82,7 @@ private:
 			std::advance(it, pairSize);
 		}
 
-		printContainer(cont, depth, elementSize);
+		//printContainer(cont, depth, elementSize);
 		// Head deeper if pairs exist on the next depth.
 		if (elements >= 4)
 			recursiveMergeInsertionSort(cont, depth + 1);
@@ -81,7 +93,8 @@ private:
 		// Set up main and pend chains and helper variables
 		TContainer main, pend;
 		int elementsToInsert = 0;
-		int elementsInserted = 0;
+		int elementsInserted = 1; // b1 automatically inserted
+		int oddFlag = isOdd(elements) ? 1 : 0;
 		it = cont.begin();
 		for (int i = 0; i * elementSize < elements; i++) {
 			// main chain = b1, a1, ..., an
@@ -95,24 +108,44 @@ private:
 			std::advance(it, elementSize);
 		}
 
-//		Iter dest, lowerBound, upperBound;
+		// Calculate range of insertions based on the j[acobsthal] sequence
+		int jIndex = 1;
+		int jPrevious = 1;
+		int jNumber = jacobsthal(++jIndex);
+		int jOffset = 0;
+		int lastFlag = 0;
+		Iter itPend, itMain;
 		while (elementsToInsert) {
-			// Select pend element to insert into main using Jabobstahl
-			it = pend.begin();
+			if (jNumber == elementsInserted) {
+				jPrevious = jNumber;
+				jNumber = jacobsthal(++jIndex);
+				if (elementsToInsert <= jNumber - jPrevious) {
+					jOffset = jNumber - jPrevious - elementsToInsert;
+					lastFlag = 1;
+				}
+				std::cout << "Moving to next Jacobsthal number: jNum " << jNumber << " jPrev " << jPrevious << ", jDiff " << jNumber - jPrevious << ", inserted " << elementsInserted << "\n";
+			}
+			std::cout << "Main before: ";
+			printContainer(main, depth, elementSize);
+			std::cout << "Pend before: ";
+			printContainer(pend, depth, elementSize);
+			itPend = pend.begin() + (jNumber - elementsInserted - jPrevious - jOffset) * elementSize;
+			itMain = upperBound(itPend, elementSize, main.begin(), main.begin() + (jNumber + elementsInserted - jOffset + oddFlag * lastFlag--) * elementSize);
+			std::cout << "Inserting " << *itPend + elementSize - 1 << " before " << *itMain + elementSize - 1 << "\n";
+			for (int i = 0; i < elementSize; i++)
+				itMain = main.insert(itMain, itPend, itPend + elementSize);
 			elementsInserted++;
+			for (int i = 0; i < elementSize; i++)
+				itPend = pend.erase(itPend);
 			elementsToInsert--;
-			// Insert pend element to main, remove from pend
-			
 		}
-
-		// Add leftover elements to the end of main
-		while (it != cont.end())
-			main.emplace_back(*(it++));
 		
 		// Copy elements from main back to container
 		TContainer copy(cont);
 		it = cont.begin();
 		for (int n : main)
 			*(it++) = n;
+		std::cout << "Cont: ";
+		printContainer(cont, depth, elementSize);
 	};
 };

@@ -21,7 +21,7 @@ int PmergeMe::getComparisonCount() const {
 	return _comparisonCount;
 }
 
-int PmergeMe::jacobshal(int n) {
+int PmergeMe::jacobsthal(int n) {
 	if (n < 0)
 		throw std::out_of_range("Jacobsthal got a negative number :(\n");
 	else if (n == 0)

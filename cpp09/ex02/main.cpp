@@ -55,12 +55,12 @@ static std::vector<int> argsToVector(int argc, char** argv) {
 	return vec;
 }
 
-static std::deque<int> argsToDeque(int argc, char** argv) {
-	std::deque<int> deq;
-	for (int i = 1; i < argc; i++)
-		deq.emplace_back(std::atoi(argv[i]));
-	return deq;
-}
+// static std::deque<int> argsToDeque(int argc, char** argv) {
+// 	std::deque<int> deq;
+// 	for (int i = 1; i < argc; i++)
+// 		deq.emplace_back(std::atoi(argv[i]));
+// 	return deq;
+// }
 
 static std::set<int> argsToSet(int argc, char** argv) {
 	std::set<int> set;
@@ -103,6 +103,7 @@ int main(int argc, char** argv) {
 	}
 
 	// Vector test
+	std::cout << "\nVector test!\n";
 	clock_t vecStart = clock();
 	PmergeMe sorterVec;
 	std::vector<int> vec = argsToVector(argc, argv);
@@ -112,15 +113,16 @@ int main(int argc, char** argv) {
 		std::cout << "Vector sort incorrect!\n";
 	double vecDuration = static_cast<double>(vecStop - vecStart) / CLOCKS_PER_SEC;
 	
-	// Deque test
-	clock_t deqStart = clock();
-	PmergeMe sorterDeq;
-	std::deque<int> deq = argsToDeque(argc, argv);
-	sorterDeq.sortDeque(deq);
-	time_t deqStop = clock();
-	if (!compareContainers(results, deq))
-		std::cout << "Deq sort incorrect!\n";
-	double deqDuration = static_cast<double>(deqStop - deqStart) / CLOCKS_PER_SEC;
+	// // Deque test
+	// std::cout << "\nDeque test!\n";
+	// clock_t deqStart = clock();
+	// PmergeMe sorterDeq;
+	// std::deque<int> deq = argsToDeque(argc, argv);
+	// sorterDeq.sortDeque(deq);
+	// time_t deqStop = clock();
+	// if (!compareContainers(results, deq))
+	// 	std::cout << "Deq sort incorrect!\n";
+	// double deqDuration = static_cast<double>(deqStop - deqStart) / CLOCKS_PER_SEC;
 
 	// validate results
 
@@ -129,7 +131,7 @@ int main(int argc, char** argv) {
 	// std::cout << "Time to process a range of " << argc -1 << " elements with std::vector : " << vecDuration * 1000 << " us\n";
 	// std::cout << "Time to process a range of " << argc -1 << " elements with std::deque : " << deqDuration * 1000 << " us\n";
 	std::cout << "Vector - elements: " << argc -1 << ", comparisons: " << sorterVec.getComparisonCount() << "/" << worstCase(argc) << ", time: " << vecDuration * 1000 << " us\n";
-	std::cout << "Deque - elements: " << argc -1 << ", comparisons: " << sorterDeq.getComparisonCount() << "/" << worstCase(argc) << ", time: " << deqDuration * 1000 << " us\n";
+	// std::cout << "Deque - elements: " << argc -1 << ", comparisons: " << sorterDeq.getComparisonCount() << "/" << worstCase(argc) << ", time: " << deqDuration * 1000 << " us\n";
 	
 	return 0;
 }
