@@ -8,8 +8,7 @@
 #include <cmath>
 
 template <typename TContainer>
-static void printContainer(TContainer cont, int depth, int elementSize) {
-	std::cout << "recursion depth " << depth << ", elementSize " << elementSize << ":\n";
+static void printContainer(TContainer cont) {
 	// for (size_t i = 0; i < cont.size(); i++) {
 	// 	if (i % (elementSize * 2) == 0) std::cout << "[";
 	// 	std::cout << cont.at(i);
@@ -54,49 +53,49 @@ private:
 	template <typename TIterator>
 	TIterator upperBound(TIterator insert, int elementSize, TIterator lowerBound, TIterator upperBound) {
 		TIterator middle;
+		std::cout << "Looking for bound for " << *(insert + elementSize - 1) << ", initial bound " << *(upperBound + elementSize - 1);
 		while (lowerBound < upperBound) {
 			middle = lowerBound + std::abs(std::distance(lowerBound, upperBound)) / 2;
 			if (isGreater(insert, middle, elementSize))
-				lowerBound = middle + 1;
+				lowerBound = middle + elementSize;
 			else
 				upperBound = middle;
 		}
+		std::cout << ", final bound " << *(lowerBound + elementSize - 1) << "\n";
 		return lowerBound;
 	}
 	
 	template <typename TContainer>
 	void recursiveMergeInsertionSort(TContainer& cont, int depth) {
 		typedef typename TContainer::iterator Iter;
+		std::cout << "\nEntered recursion depth " << depth << "\n";
 
 		// Set up variables for depth
 		int elementSize = std::pow(2, depth - 1);
 		int pairSize = elementSize * 2;
 		int elements = cont.size() / elementSize;
-		// int leftovers = cont.size() - elements * elementSize;
+		if (elements < 2)
+			return;
 
 		// Compare and swap pairs if necessary.
 		Iter it = cont.begin();
-		while (it + pairSize -1 < cont.end()) {
+		while (it + pairSize - 1 < cont.end()) {
 			if (isGreater(it, it + elementSize, elementSize))
 				swapElements(it, elementSize);
 			std::advance(it, pairSize);
 		}
 
-		//printContainer(cont, depth, elementSize);
-		// Head deeper if pairs exist on the next depth.
-		if (elements >= 4)
-			recursiveMergeInsertionSort(cont, depth + 1);
-		// Nothing further to do for less than 3 elements.
-		if (elements < 3)
-			return;
+		recursiveMergeInsertionSort(cont, depth + 1);
+		std::cout << "\nReturned to recursion depth " << depth << " with\n";
+		printContainer(cont);
 		
 		// Set up main and pend chains and helper variables
 		TContainer main, pend;
 		int elementsToInsert = 0;
 		int elementsInserted = 1; // b1 automatically inserted
-		int oddFlag = isOdd(elements) ? 1 : 0;
+		bool oddFlag = isOdd(elements) ? true : false;
 		it = cont.begin();
-		for (int i = 0; i * elementSize < elements; i++) {
+		for (int i = 0; i < elements; i++) {
 			// main chain = b1, a1, ..., an
 			if (i == 0 || isOdd(i))
 				main.insert(main.end(), it, it + elementSize);
@@ -112,40 +111,49 @@ private:
 		int jIndex = 1;
 		int jPrevious = 1;
 		int jNumber = jacobsthal(++jIndex);
+		int jDiff = jNumber - jPrevious;
 		int jOffset = 0;
-		int lastFlag = 0;
+		int inserted = 0;
 		Iter itPend, itMain;
+		int pendIndex;
+		bool lastFlag = false;
 		while (elementsToInsert) {
-			if (jNumber == elementsInserted) {
+			if (inserted == jDiff) {
 				jPrevious = jNumber;
 				jNumber = jacobsthal(++jIndex);
-				if (elementsToInsert <= jNumber - jPrevious) {
-					jOffset = jNumber - jPrevious - elementsToInsert;
-					lastFlag = 1;
+				jDiff = jNumber - jPrevious;
+				inserted = 0;
+				std::cout << "Moving to next Jacobsthal number: jNum " << jNumber << " jPrev " << jPrevious << ", jDiff " << jDiff << ", elementsInserted " << elementsInserted << ", leftToInsert " << elementsToInsert << "\n";
+				if (elementsToInsert <= jDiff) {
+					jOffset = jDiff - elementsToInsert;
+					lastFlag = true;
+					std::cout << "Last cycle of depth " << depth << ": offset " << jOffset << " and" << (oddFlag ? " odd element " : " no odd element") << "\n";
 				}
-				std::cout << "Moving to next Jacobsthal number: jNum " << jNumber << " jPrev " << jPrevious << ", jDiff " << jNumber - jPrevious << ", inserted " << elementsInserted << "\n";
 			}
-			std::cout << "Main before: ";
-			printContainer(main, depth, elementSize);
-			std::cout << "Pend before: ";
-			printContainer(pend, depth, elementSize);
-			itPend = pend.begin() + (jNumber - elementsInserted - jPrevious - jOffset) * elementSize;
-			itMain = upperBound(itPend, elementSize, main.begin(), main.begin() + (jNumber + elementsInserted - jOffset + oddFlag * lastFlag--) * elementSize);
-			std::cout << "Inserting " << *itPend + elementSize - 1 << " before " << *itMain + elementSize - 1 << "\n";
-			for (int i = 0; i < elementSize; i++)
-				itMain = main.insert(itMain, itPend, itPend + elementSize);
+			std::cout << "Main: ";
+			printContainer(main);
+			std::cout << "Pend: ";
+			printContainer(pend);
+			pendIndex = jDiff - 1 - inserted - jOffset;
+			itPend = pend.begin() + pendIndex * elementSize;
+			itMain = main.begin() + (jNumber - inserted - jOffset - 1 + elementsInserted) * elementSize;
+			if (oddFlag && lastFlag) {
+				itMain += elementSize;
+				lastFlag = false;
+			}
+			itMain = upperBound(itPend, elementSize, main.begin(), itMain);
+			main.insert(itMain, itPend, itPend + elementSize);
+			inserted++;
 			elementsInserted++;
 			for (int i = 0; i < elementSize; i++)
 				itPend = pend.erase(itPend);
 			elementsToInsert--;
 		}
-		
+
 		// Copy elements from main back to container
 		TContainer copy(cont);
 		it = cont.begin();
 		for (int n : main)
 			*(it++) = n;
-		std::cout << "Cont: ";
-		printContainer(cont, depth, elementSize);
 	};
 };
