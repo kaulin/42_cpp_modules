@@ -21,11 +21,6 @@ static bool patternMatches(std::string input, std::regex pattern) {
 	return std::regex_match(input, pattern);
 }
 
-static bool fileReadable(const std::string& filePath) {
-	std::ifstream file(filePath);
-	return file.good();
-}
-
 static std::string trim(const std::string& string) {
 	std::string whitespace = " \n\t\r";
 	size_t start = string.find_first_not_of(whitespace);
@@ -103,9 +98,9 @@ float BitcoinExchange::getTotalValue(time_t date, float count) const {
 }
 
 void BitcoinExchange::initDatabase(const std::string& databaseFilePath) {
-	if (!fileReadable(databaseFilePath))
-		throw std::runtime_error("Error: could not open file.");
 	std::ifstream database (databaseFilePath);
+	if (!database.is_open() && !database.good())
+		throw std::runtime_error("Error: could not open file.");
 	database.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	std::string line;
 	time_t date;
@@ -119,9 +114,9 @@ void BitcoinExchange::initDatabase(const std::string& databaseFilePath) {
 }
 
 void BitcoinExchange::calculateTotals(const std::string& inputFilePath) const {
-	if (!fileReadable(inputFilePath))
-		throw std::runtime_error("Error: could not open file.");
 	std::ifstream inputFile(inputFilePath);
+	if (!inputFile.is_open() && !inputFile.good())
+		throw std::runtime_error("Error: could not open file.");
 	inputFile.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	std::string line;
 	time_t date;
