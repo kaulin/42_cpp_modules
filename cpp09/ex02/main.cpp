@@ -2,19 +2,20 @@
 #include <sstream>
 #include <vector>
 #include <deque>
+#include <list>
 #include <set>
 #include <algorithm>
 #include "PmergeMe.hpp"
 
-// Returns the max number of comparisons for n elements, courtesy of https://github.com/emuminov
-static int worstCase(int n) {
-	int result = 0;
-	for (int i = 1; i <= n; ++i) {
-		double value = (3.0 / 4.0) * i;
-		result += static_cast<int>(ceil(log2(value)));
-	}
-	return result;
-}
+// Returns the max number of comparisons for n elements
+// static int worstCase(int n) {
+// 	int result = 0;
+// 	for (int i = 1; i <= n; ++i) {
+// 		double value = (3.0 / 4.0) * i;
+// 		result += static_cast<int>(ceil(log2(value)));
+// 	}
+// 	return result;
+// }
 
 static void isIntString(const std::string& string) {
 	try {
@@ -39,10 +40,11 @@ static void printBefore(int argc, char** argv) {
 	std::cout << sstream.str() << "\n";
 }
 
-static void printAfter(std::vector<int> vec) {
+template <typename TContainer>
+static void printAfter(TContainer cont) {
 	std::stringstream sstream;
 	sstream << "After: ";
-	for (int n : vec)
+	for (int n : cont)
 		sstream << n << " ";
 	std::cout << sstream.str() << "\n";
 }
@@ -55,12 +57,12 @@ static std::vector<int> argsToVector(int argc, char** argv) {
 	return vec;
 }
 
-// static std::deque<int> argsToDeque(int argc, char** argv) {
-// 	std::deque<int> deq;
-// 	for (int i = 1; i < argc; i++)
-// 		deq.emplace_back(std::atoi(argv[i]));
-// 	return deq;
-// }
+static std::deque<int> argsToDeque(int argc, char** argv) {
+	std::deque<int> deq;
+	for (int i = 1; i < argc; i++)
+		deq.emplace_back(std::atoi(argv[i]));
+	return deq;
+}
 
 static std::set<int> argsToSet(int argc, char** argv) {
 	std::set<int> set;
@@ -94,6 +96,7 @@ int main(int argc, char** argv) {
 		return 1;
 	}
 	std::set<int> results;
+	std::string error = "";
 	try {
 		validateArgs(argc, argv);
 		results = argsToSet(argc, argv);
@@ -102,36 +105,43 @@ int main(int argc, char** argv) {
 		return -1;
 	}
 
+	// std::cout << "Commencing tests with args:\n";
+	printBefore(argc, argv);
+
 	// Vector test
-	std::cout << "\nVector test!\n";
+	// std::cout << "\nVector test!\n";
 	clock_t vecStart = clock();
 	PmergeMe sorterVec;
 	std::vector<int> vec = argsToVector(argc, argv);
 	sorterVec.sortVector(vec);
 	time_t vecStop = clock();
 	if (!compareContainers(results, vec))
-		std::cout << "Vector sort incorrect!\n";
+		error += "Vector sort incorrect!\n";
 	double vecDuration = static_cast<double>(vecStop - vecStart) / CLOCKS_PER_SEC;
+	// std::cout << "Vector - elements: " << argc -1 << ", comparisons: " << sorterVec.getComparisonCount() << "/" << worstCase(argc) << ", time: " << vecDuration * 1000 << " us\n";
+	//printAfter(vec);
 	
-	// // Deque test
+	// Deque test
 	// std::cout << "\nDeque test!\n";
-	// clock_t deqStart = clock();
-	// PmergeMe sorterDeq;
-	// std::deque<int> deq = argsToDeque(argc, argv);
-	// sorterDeq.sortDeque(deq);
-	// time_t deqStop = clock();
-	// if (!compareContainers(results, deq))
-	// 	std::cout << "Deq sort incorrect!\n";
-	// double deqDuration = static_cast<double>(deqStop - deqStart) / CLOCKS_PER_SEC;
-
-	// validate results
-
-	printBefore(argc, argv);
-	printAfter(vec);
-	// std::cout << "Time to process a range of " << argc -1 << " elements with std::vector : " << vecDuration * 1000 << " us\n";
-	// std::cout << "Time to process a range of " << argc -1 << " elements with std::deque : " << deqDuration * 1000 << " us\n";
-	std::cout << "Vector - elements: " << argc -1 << ", comparisons: " << sorterVec.getComparisonCount() << "/" << worstCase(argc) << ", time: " << vecDuration * 1000 << " us\n";
+	clock_t deqStart = clock();
+	PmergeMe sorterDeq;
+	std::deque<int> deq = argsToDeque(argc, argv);
+	sorterDeq.sortDeque(deq);
+	time_t deqStop = clock();
+	if (!compareContainers(results, deq))
+		error += "Vector sort incorrect!\n";
+	double deqDuration = static_cast<double>(deqStop - deqStart) / CLOCKS_PER_SEC;
 	// std::cout << "Deque - elements: " << argc -1 << ", comparisons: " << sorterDeq.getComparisonCount() << "/" << worstCase(argc) << ", time: " << deqDuration * 1000 << " us\n";
+	//printAfter(deq);
+
+	// Subject main:
+	if (error.empty())
+		printAfter(vec);
+	else
+		std::cout << error;
+	std::cout << "Time to process a range of " << argc -1 << " elements with std::vector : " << vecDuration * 1000 << " us\n";
+	std::cout << "Time to process a range of " << argc -1 << " elements with std::deque : " << deqDuration * 1000 << " us\n";
+	
 	
 	return 0;
 }
