@@ -53,9 +53,12 @@ private:
 	template <typename TIterator>
 	TIterator upperBound(TIterator insert, int elementSize, TIterator lowerBound, TIterator upperBound) {
 		TIterator middle;
+		TIterator originalLowerBound = lowerBound;
 		std::cout << "Looking for bound for " << *(insert + elementSize - 1) << ", initial bound " << *(upperBound + elementSize - 1);
 		while (lowerBound < upperBound) {
 			middle = lowerBound + std::abs(std::distance(lowerBound, upperBound)) / 2;
+			if (isOdd(std::distance(originalLowerBound, middle)))
+				middle -= elementSize / 2;
 			if (isGreater(insert, middle, elementSize))
 				lowerBound = middle + elementSize;
 			else
@@ -113,8 +116,10 @@ private:
 		int jNumber = jacobsthal(++jIndex);
 		int jDiff = jNumber - jPrevious;
 		int jOffset = 0;
+		int insertionRange = 0;
+		int boundOffset = 0;
 		int inserted = 0;
-		Iter itPend, itMain;
+		Iter itPend, itMain, itMainUpperBound;
 		int pendIndex;
 		bool lastFlag = false;
 		while (elementsToInsert) {
@@ -123,12 +128,14 @@ private:
 				jNumber = jacobsthal(++jIndex);
 				jDiff = jNumber - jPrevious;
 				inserted = 0;
-				std::cout << "Moving to next Jacobsthal number: jNum " << jNumber << " jPrev " << jPrevious << ", jDiff " << jDiff << ", elementsInserted " << elementsInserted << ", leftToInsert " << elementsToInsert << "\n";
+				boundOffset = 0;
 				if (elementsToInsert <= jDiff) {
 					jOffset = jDiff - elementsToInsert;
 					lastFlag = true;
 					std::cout << "Last cycle of depth " << depth << ": offset " << jOffset << " and" << (oddFlag ? " odd element " : " no odd element") << "\n";
 				}
+				insertionRange = std::pow(2, jIndex - 1) - 1 - jOffset;
+				std::cout << "Moving to next Jacobsthal number: jNum " << jNumber << " jPrev " << jPrevious << ", jDiff " << jDiff << ", insertionRange " << insertionRange << ", elementsInserted " << elementsInserted << ", leftToInsert " << elementsToInsert << "\n";
 			}
 			std::cout << "Main: ";
 			printContainer(main);
@@ -136,13 +143,15 @@ private:
 			printContainer(pend);
 			pendIndex = jDiff - 1 - inserted - jOffset;
 			itPend = pend.begin() + pendIndex * elementSize;
-			itMain = main.begin() + (jNumber - inserted - jOffset - 1 + elementsInserted) * elementSize;
+			itMain = main.begin() + (insertionRange + boundOffset) * elementSize;
 			if (oddFlag && lastFlag) {
-				itMain += elementSize;
+				// itMain += elementSize;
 				lastFlag = false;
 			}
-			itMain = upperBound(itPend, elementSize, main.begin(), itMain);
-			main.insert(itMain, itPend, itPend + elementSize);
+			itMainUpperBound = upperBound(itPend, elementSize, main.begin(), itMain);
+			if (itMainUpperBound >= itMain) // b element is inserted right next to corresponding a, next 
+				boundOffset++;
+			main.insert(itMainUpperBound, itPend, itPend + elementSize);
 			inserted++;
 			elementsInserted++;
 			for (int i = 0; i < elementSize; i++)
