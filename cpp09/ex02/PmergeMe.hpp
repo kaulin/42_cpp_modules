@@ -57,8 +57,7 @@ private:
 		std::cout << "Looking for bound for " << *(insert + elementSize - 1) << ", initial bound " << *(upperBound + elementSize - 1);
 		while (lowerBound < upperBound) {
 			middle = lowerBound + std::abs(std::distance(lowerBound, upperBound)) / 2;
-			if (isOdd(std::distance(originalLowerBound, middle)))
-				middle -= elementSize / 2;
+			middle = middle - (std::distance(originalLowerBound, middle) % elementSize);
 			if (isGreater(insert, middle, elementSize))
 				lowerBound = middle + elementSize;
 			else
@@ -71,7 +70,7 @@ private:
 	template <typename TContainer>
 	void recursiveMergeInsertionSort(TContainer& cont, int depth) {
 		typedef typename TContainer::iterator Iter;
-		std::cout << "\nEntered recursion depth " << depth << "\n";
+		// std::cout << "\nEntered recursion depth " << depth << "\n";
 
 		// Set up variables for depth
 		int elementSize = std::pow(2, depth - 1);
@@ -89,8 +88,8 @@ private:
 		}
 
 		recursiveMergeInsertionSort(cont, depth + 1);
-		std::cout << "\nReturned to recursion depth " << depth << " with\n";
-		printContainer(cont);
+		// std::cout << "\nReturned to recursion depth " << depth << " with\n";
+		// printContainer(cont);
 		
 		// Set up main and pend chains and helper variables
 		TContainer main, pend;
@@ -132,15 +131,15 @@ private:
 				if (elementsToInsert <= jDiff) {
 					jOffset = jDiff - elementsToInsert;
 					lastFlag = true;
-					std::cout << "Last cycle of depth " << depth << ": offset " << jOffset << " and" << (oddFlag ? " odd element " : " no odd element") << "\n";
+					// std::cout << "Last cycle of depth " << depth << ": offset " << jOffset << " and" << (oddFlag ? " odd element " : " no odd element") << "\n";
 				}
 				insertionRange = std::pow(2, jIndex - 1) - 1 - jOffset;
-				std::cout << "Moving to next Jacobsthal number: jNum " << jNumber << " jPrev " << jPrevious << ", jDiff " << jDiff << ", insertionRange " << insertionRange << ", elementsInserted " << elementsInserted << ", leftToInsert " << elementsToInsert << "\n";
+				// std::cout << "Moving to next Jacobsthal number: jNum " << jNumber << " jPrev " << jPrevious << ", jDiff " << jDiff << ", insertionRange " << insertionRange << ", elementsInserted " << elementsInserted << ", leftToInsert " << elementsToInsert << "\n";
 			}
-			std::cout << "Main: ";
-			printContainer(main);
-			std::cout << "Pend: ";
-			printContainer(pend);
+			// std::cout << "Main: ";
+			// printContainer(main);
+			// std::cout << "Pend: ";
+			// printContainer(pend);
 			pendIndex = jDiff - 1 - inserted - jOffset;
 			itPend = pend.begin() + pendIndex * elementSize;
 			itMain = main.begin() + (insertionRange + boundOffset) * elementSize;
