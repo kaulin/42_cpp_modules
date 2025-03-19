@@ -77,10 +77,8 @@ template <typename TcontainerA, typename TcontainerB>
 static bool compareContainers(TcontainerA a, TcontainerB b) {
 	if (a.size() != b.size())
 		return false;
-	typedef typename TcontainerA::iterator IteratorA;
-	typedef typename TcontainerB::iterator IteratorB;
-	IteratorA itA = a.begin();
-	IteratorB itB = b.begin();
+	typename TcontainerA::iterator itA = a.begin();
+	typename TcontainerB::iterator itB = b.begin();
 	while (itA != a.end() && itB != b.end()) {
 		if (*itA != *itB)
 			return false;
