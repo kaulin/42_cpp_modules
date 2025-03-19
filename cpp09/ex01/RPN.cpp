@@ -58,9 +58,8 @@ int RPN::process(const std::string& expression) {
 	if (expression.empty())
 		throw std::runtime_error("Empty expression");
 	std::istringstream input(expression);
-	std::string token;
+	std::string token = "";
 	while (!input.eof()) {
-		token = "";
 		input >> token;
 		processToken(token);
 	}
