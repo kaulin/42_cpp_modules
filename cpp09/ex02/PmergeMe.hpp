@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <deque>
+#include <list>
 #include <algorithm>
 #include <sstream>
 #include <cmath>
@@ -54,7 +55,6 @@ private:
 	TIterator upperBound(TIterator insert, int elementSize, TIterator lowerBound, TIterator upperBound) {
 		TIterator middle;
 		TIterator originalLowerBound = lowerBound;
-		std::cout << "Looking for bound for " << *(insert + elementSize - 1) << ", initial bound " << *(upperBound + elementSize - 1);
 		while (lowerBound < upperBound) {
 			middle = lowerBound + std::abs(std::distance(lowerBound, upperBound)) / 2;
 			middle = middle - (std::distance(originalLowerBound, middle) % elementSize);
@@ -63,39 +63,35 @@ private:
 			else
 				upperBound = middle;
 		}
-		std::cout << ", final bound " << *(lowerBound + elementSize - 1) << "\n";
 		return lowerBound;
 	}
 	
 	template <typename TContainer>
 	void recursiveMergeInsertionSort(TContainer& cont, int depth) {
 		typedef typename TContainer::iterator Iter;
-		// std::cout << "\nEntered recursion depth " << depth << "\n";
 
 		// Set up variables for depth
 		int elementSize = std::pow(2, depth - 1);
-		int pairSize = elementSize * 2;
 		int elements = cont.size() / elementSize;
-		if (elements < 2)
+		int pairSize = elementSize * 2;
+		int pairs = elements / 2;
+		if (pairs == 0)
 			return;
 
 		// Compare and swap pairs if necessary.
 		Iter it = cont.begin();
-		while (it + pairSize - 1 < cont.end()) {
+		for (int i = 0; i < pairs; i++) {
 			if (isGreater(it, it + elementSize, elementSize))
 				swapElements(it, elementSize);
 			std::advance(it, pairSize);
 		}
 
 		recursiveMergeInsertionSort(cont, depth + 1);
-		// std::cout << "\nReturned to recursion depth " << depth << " with\n";
-		// printContainer(cont);
-		
+
 		// Set up main and pend chains and helper variables
 		TContainer main, pend;
 		int elementsToInsert = 0;
 		int elementsInserted = 1; // b1 automatically inserted
-		bool oddFlag = isOdd(elements) ? true : false;
 		it = cont.begin();
 		for (int i = 0; i < elements; i++) {
 			// main chain = b1, a1, ..., an
@@ -131,24 +127,14 @@ private:
 				if (elementsToInsert <= jDiff) {
 					jOffset = jDiff - elementsToInsert;
 					lastFlag = true;
-					// std::cout << "Last cycle of depth " << depth << ": offset " << jOffset << " and" << (oddFlag ? " odd element " : " no odd element") << "\n";
 				}
 				insertionRange = std::pow(2, jIndex - 1) - 1 - jOffset;
-				// std::cout << "Moving to next Jacobsthal number: jNum " << jNumber << " jPrev " << jPrevious << ", jDiff " << jDiff << ", insertionRange " << insertionRange << ", elementsInserted " << elementsInserted << ", leftToInsert " << elementsToInsert << "\n";
 			}
-			// std::cout << "Main: ";
-			// printContainer(main);
-			// std::cout << "Pend: ";
-			// printContainer(pend);
 			pendIndex = jDiff - 1 - inserted - jOffset;
 			itPend = pend.begin() + pendIndex * elementSize;
 			itMain = main.begin() + (insertionRange + boundOffset) * elementSize;
-			if (oddFlag && lastFlag) {
-				// itMain += elementSize;
-				lastFlag = false;
-			}
 			itMainUpperBound = upperBound(itPend, elementSize, main.begin(), itMain);
-			if (itMainUpperBound >= itMain) // b element is inserted right next to corresponding a, next 
+			if (itMainUpperBound > itMain) // b element is inserted right next to corresponding a, next 
 				boundOffset++;
 			main.insert(itMainUpperBound, itPend, itPend + elementSize);
 			inserted++;
