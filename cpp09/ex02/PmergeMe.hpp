@@ -89,7 +89,7 @@ private:
 		// Go to the next recursion depth.
 		recursiveMergeInsertionSort(cont, depth + 1);
 
-		// Set up main and pend chains
+		// Set up main and pend chains.
 		TContainer main, pend;
 		int elementsToInsert = 0;
 		it = cont.begin();
@@ -105,7 +105,7 @@ private:
 			std::advance(it, elementSize);
 		}
 
-		// Insert pend elements in ranges based on the Jacobsthal sequence
+		// Insert pend elements in ranges based on the Jacobsthal sequence.
 		int jIndex = 1;
 		int jPrevious = 1;
 		int jNumber = jacobsthal(++jIndex);
@@ -133,7 +133,7 @@ private:
 			elementsToInsert--;
 		}
 
-		// Copy sorted elements from main to container (leftovers are not touched)
+		// Copy sorted elements from main to container (leftovers are not touched).
 		TContainer copy(cont);
 		it = cont.begin();
 		for (int n : main)
