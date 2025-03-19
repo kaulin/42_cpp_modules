@@ -52,7 +52,7 @@ private:
 	};
 
 	template <typename TIterator>
-	TIterator upperBound(TIterator insert, int elementSize, TIterator lowerBound, TIterator upperBound) {
+	TIterator findBound(TIterator insert, int elementSize, TIterator lowerBound, TIterator upperBound) {
 		TIterator middle;
 		TIterator originalLowerBound = lowerBound;
 		while (lowerBound < upperBound) {
@@ -70,7 +70,7 @@ private:
 	void recursiveMergeInsertionSort(TContainer& cont, int depth) {
 		typedef typename TContainer::iterator Iter;
 
-		// Set up variables for depth
+		// Set up variables for recursion depth. If there are no pairs, return.
 		int elementSize = std::pow(2, depth - 1);
 		int elements = cont.size() / elementSize;
 		int pairSize = elementSize * 2;
@@ -86,12 +86,12 @@ private:
 			std::advance(it, pairSize);
 		}
 
+		// Go to the next recursion depth.
 		recursiveMergeInsertionSort(cont, depth + 1);
 
-		// Set up main and pend chains and helper variables
+		// Set up main and pend chains
 		TContainer main, pend;
 		int elementsToInsert = 0;
-		int elementsInserted = 1; // b1 automatically inserted
 		it = cont.begin();
 		for (int i = 0; i < elements; i++) {
 			// main chain = b1, a1, ..., an
@@ -105,46 +105,35 @@ private:
 			std::advance(it, elementSize);
 		}
 
-		// Calculate range of insertions based on the j[acobsthal] sequence
+		// Insert pend elements in ranges based on the Jacobsthal sequence
 		int jIndex = 1;
 		int jPrevious = 1;
 		int jNumber = jacobsthal(++jIndex);
-		int jDiff = jNumber - jPrevious;
+		int jDifference = jNumber - jPrevious;
 		int jOffset = 0;
 		int insertionRange = 0;
-		int boundOffset = 0;
-		int inserted = 0;
-		Iter itPend, itMain, itMainUpperBound;
-		int pendIndex;
-		bool lastFlag = false;
+		int insertedThisRange = 0;
+		Iter itPend, itMain;
 		while (elementsToInsert) {
-			if (inserted == jDiff) {
+			if (insertedThisRange == jDifference) {
 				jPrevious = jNumber;
 				jNumber = jacobsthal(++jIndex);
-				jDiff = jNumber - jPrevious;
-				inserted = 0;
-				boundOffset = 0;
-				if (elementsToInsert <= jDiff) {
-					jOffset = jDiff - elementsToInsert;
-					lastFlag = true;
-				}
+				jDifference = jNumber - jPrevious;
+				insertedThisRange = 0;
+				if (elementsToInsert <= jDifference)
+					jOffset = jDifference - elementsToInsert;
 				insertionRange = std::pow(2, jIndex - 1) - 1 - jOffset;
 			}
-			pendIndex = jDiff - 1 - inserted - jOffset;
-			itPend = pend.begin() + pendIndex * elementSize;
-			itMain = main.begin() + (insertionRange + boundOffset) * elementSize;
-			itMainUpperBound = upperBound(itPend, elementSize, main.begin(), itMain);
-			if (itMainUpperBound > itMain) // b element is inserted right next to corresponding a, next 
-				boundOffset++;
-			main.insert(itMainUpperBound, itPend, itPend + elementSize);
-			inserted++;
-			elementsInserted++;
+			itPend = pend.begin() + (jDifference - 1 - insertedThisRange - jOffset) * elementSize;
+			itMain = findBound(itPend, elementSize, main.begin(), main.begin() + insertionRange * elementSize);
+			main.insert(itMain, itPend, itPend + elementSize);
+			insertedThisRange++;
 			for (int i = 0; i < elementSize; i++)
 				itPend = pend.erase(itPend);
 			elementsToInsert--;
 		}
 
-		// Copy elements from main back to container
+		// Copy sorted elements from main to container (leftovers are not touched)
 		TContainer copy(cont);
 		it = cont.begin();
 		for (int n : main)

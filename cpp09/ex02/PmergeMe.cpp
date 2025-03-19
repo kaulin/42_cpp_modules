@@ -10,10 +10,12 @@ PmergeMe& PmergeMe::operator=(const PmergeMe& other) {
 }
 
 void PmergeMe::sortVector(std::vector<int>& vec) {
+	_comparisonCount = 0;
 	recursiveMergeInsertionSort<std::vector<int>>(vec, 1);
 }
 
 void PmergeMe::sortDeque(std::deque<int>& deq) {
+	_comparisonCount = 0;
 	recursiveMergeInsertionSort<std::deque<int>>(deq, 1);
 }
 
@@ -22,9 +24,7 @@ int PmergeMe::getComparisonCount() const {
 }
 
 int PmergeMe::jacobsthal(int n) {
-	if (n < 0)
-		throw std::out_of_range("Jacobsthal got a negative number :(\n");
-	else if (n == 0)
+	if (n <= 0)
 		return 0;
 	else if (n == 1)
 		return 1;
