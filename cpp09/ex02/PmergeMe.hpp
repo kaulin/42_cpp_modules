@@ -10,12 +10,6 @@
 
 template <typename TContainer>
 static void printContainer(TContainer cont) {
-	// for (size_t i = 0; i < cont.size(); i++) {
-	// 	if (i % (elementSize * 2) == 0) std::cout << "[";
-	// 	std::cout << cont.at(i);
-	// 	if ((i + 1) % (elementSize * 2) == 0) std::cout << "]";
-	// 	else std::cout << "  ";
-	// }
 	for (size_t i = 0; i < cont.size(); i++) {
 		std::cout << cont.at(i) << " ";
 	}
@@ -88,15 +82,13 @@ private:
 		// Go to the next recursion depth.
 		recursiveMergeInsertionSort(cont, depth + 1);
 
-		// Set up main and pend chains.
+		// Set up main (b1, a1, ..., an) and pend (b2, ..., bn) chains.
 		TContainer main, pend;
 		int elementsToInsert = 0;
 		it = cont.begin();
 		for (int i = 0; i < elements; i++) {
-			// main chain = b1, a1, ..., an
 			if (i == 0 || i & 1)
 				main.insert(main.end(), it, it + elementSize);
-			// pend chain = b2, ..., bn
 			else {
 				pend.insert(pend.end(), it, it + elementSize);
 				elementsToInsert++;
@@ -135,7 +127,6 @@ private:
 		}
 
 		// Copy sorted elements from main to container (leftovers are not touched).
-		TContainer copy(cont);
 		it = cont.begin();
 		for (int n : main)
 			*(it++) = n;
