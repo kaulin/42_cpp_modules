@@ -31,10 +31,9 @@ public:
 	int getComparisonCount() const;
 private:
 	int _comparisonCount;
+	
 	PmergeMe(const PmergeMe& other);
 	PmergeMe& operator=(const PmergeMe& other);
-	static int jacobsthal(int n);
-	static int isOdd(int n);
 
 	template <typename TIterator>
 	bool isGreater(const TIterator a, const TIterator b, int elementSize) {
@@ -95,7 +94,7 @@ private:
 		it = cont.begin();
 		for (int i = 0; i < elements; i++) {
 			// main chain = b1, a1, ..., an
-			if (i == 0 || isOdd(i))
+			if (i == 0 || i & 1)
 				main.insert(main.end(), it, it + elementSize);
 			// pend chain = b2, ..., bn
 			else {
@@ -105,29 +104,31 @@ private:
 			std::advance(it, elementSize);
 		}
 
-		// Insert pend elements in ranges based on the Jacobsthal sequence.
+		// Set up helper variables and insert pend elements in ranges based on the Jacobsthal sequence.
 		int jIndex = 1;
 		int jPrevious = 1;
-		int jNumber = jacobsthal(++jIndex);
-		int jDifference = jNumber - jPrevious;
+		int jNumber = 1;
+		int jDifference = 0;
 		int jOffset = 0;
-		int insertionRange = 0;
-		int insertedThisRange = 0;
+		int jInsertions = 0;
+		int jTemp = 0;
+		int jInsertionRange = 0;
 		Iter itPend, itMain;
 		while (elementsToInsert) {
-			if (insertedThisRange == jDifference) {
-				jPrevious = jNumber;
-				jNumber = jacobsthal(++jIndex);
+			if (jInsertions == jDifference) {
+				jTemp = jNumber;
+				jNumber = jPrevious * 2 + jNumber;
+				jPrevious = jTemp;
 				jDifference = jNumber - jPrevious;
-				insertedThisRange = 0;
+				jInsertions = 0;
+				jInsertionRange = std::pow(2, ++jIndex) - 1;
 				if (elementsToInsert <= jDifference)
 					jOffset = jDifference - elementsToInsert;
-				insertionRange = std::pow(2, jIndex - 1) - 1 - jOffset;
 			}
-			itPend = pend.begin() + (jDifference - 1 - insertedThisRange - jOffset) * elementSize;
-			itMain = findBound(itPend, elementSize, main.begin(), main.begin() + insertionRange * elementSize);
+			itPend = pend.begin() + (jDifference - 1 - jInsertions - jOffset) * elementSize;
+			itMain = findBound(itPend, elementSize, main.begin(), main.begin() + (jInsertionRange - jOffset) * elementSize);
 			main.insert(itMain, itPend, itPend + elementSize);
-			insertedThisRange++;
+			jInsertions++;
 			for (int i = 0; i < elementSize; i++)
 				itPend = pend.erase(itPend);
 			elementsToInsert--;
